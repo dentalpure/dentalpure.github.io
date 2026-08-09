@@ -1,0 +1,374 @@
+<!DOCTYPE html><html lang="ja" data-mode="dental"><head><meta name="robots" content="noindex, nofollow"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Webサイト制作（単体依頼OK）｜サービス - Bridge Works Studio</title><meta name="description" content="HP・LPから、会員制サイト・オンラインスクールまで。サイト制作だけのご依頼も歓迎です。設計から実装、公開後のSEO・MEOの初期設計まで、同じチーム・同じ品質でつくります。医療系では、現役歯科医師が表現面の確認を行います。"><link rel="canonical" href="https://bridgeworks.studio/services/build/"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><!-- strix と同じ: Lexend(英) + Noto Sans JP(和) --><link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Jost:wght@600;700;800;900&family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet"><meta property="og:type" content="website"><meta property="og:title" content="Webサイト制作（単体依頼OK）｜サービス - Bridge Works Studio"><meta property="og:description" content="HP・LPから、会員制サイト・オンラインスクールまで。サイト制作だけのご依頼も歓迎です。設計から実装、公開後のSEO・MEOの初期設計まで、同じチーム・同じ品質でつくります。医療系では、現役歯科医師が表現面の確認を行います。"><meta property="og:url" content="https://bridgeworks.studio/services/build/"><meta property="og:locale" content="ja_JP"><meta property="og:site_name" content="Bridge Works Studio"><meta property="og:image" content="https://bridgeworks.studio/ogp.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://bridgeworks.studio/ogp.png"><meta name="theme-color" content="#0f1a4a"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; rx=&quot;22&quot; fill=&quot;%23131a44&quot;/><path fill=&quot;%23ff9417&quot; d=&quot;M22 80 V50 a28 28 0 0 1 56 0 V80 H62 V60 a12 12 0 0 0 -24 0 V80 Z&quot;/></svg>"><script type="importmap">
+      {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}
+    </script><script>
+      (function(){ var d = document.documentElement; d.classList.add('js');
+        // 優先順位: URLパラメータ ?mode=dental / ?mode=general > 前回の選択 > 歯科
+        // （営業メールに一般版のURLを直接貼れるようにするため ?mode=general も残す）
+        //
+        // 2026-08-09: 初期値を general → dental に変更。
+        // 当面は歯科を主戦場にする方針のため、パラメータの付かない流入（検索・名刺・紹介）は
+        // すべて歯科版で迎える。一般案件の来訪者は右上のトグルで切り替えられる。
+        // 方針が変わったら、この2箇所の 'dental' を 'general' に戻すだけでよい。
+        var q = null;
+        try { q = new URLSearchParams(location.search).get('mode'); } catch (e) {}
+        if (q === 'dental' || q === 'general') {
+          d.dataset.mode = q;
+          try { localStorage.setItem('bws-mode', q); } catch (e) {}
+          return;
+        }
+        try { d.dataset.mode = localStorage.getItem('bws-mode') === 'general' ? 'general' : 'dental'; }
+        catch (e) { d.dataset.mode = 'dental'; }
+      })();
+    </script><link rel="stylesheet" href="/_astro/Base.CS9L6t6s.css"><link rel="stylesheet" href="/_astro/_key_.ICB6UnUI.css"></head> <body> <a class="skip" href="#main">本文へスキップ</a> <div class="journey" aria-hidden="true"></div> <canvas id="stars" aria-hidden="true"></canvas>  <header class="sv-head" data-astro-cid-o7lhc5vl> <div class="wrap sv-bar" data-astro-cid-o7lhc5vl> <a class="sv-brand" href="/" data-astro-cid-o7lhc5vl> <span class="brand-lock" data-astro-cid-o7lhc5vl> <span class="brand-row" data-astro-cid-o7lhc5vl> <span class="brand-wm" data-astro-cid-o7lhc5vl>bws</span> <svg class="brand-arch" viewBox="0 0 100 100" data-astro-cid-o7lhc5vl><path fill="var(--orange)" d="M8 96 V42 a42 42 0 0 1 84 0 V96 H68 V66 a18 18 0 0 0 -36 0 V96 Z" data-astro-cid-o7lhc5vl></path></svg> </span> <span class="brand-tag" data-astro-cid-o7lhc5vl>Bridge&nbsp;Works&nbsp;Studio</span> </span> </a> <a class="sv-back en" href="/#service" data-astro-cid-o7lhc5vl>← SERVICE</a> </div> </header> <main class="sv-main" data-astro-cid-o7lhc5vl> <div class="wrap" data-astro-cid-o7lhc5vl> <p class="sv-eyebrow en" data-astro-cid-o7lhc5vl>SERVICE (02) BUILD</p> <h1 class="sv-title" data-astro-cid-o7lhc5vl>Webサイト制作（単体依頼OK）</h1> <p class="sv-lead" data-astro-cid-o7lhc5vl>HP・LPから、会員制サイト・オンラインスクールまで。サイト制作だけのご依頼も歓迎です。設計から実装、公開後のSEO・MEOの初期設計まで、同じチーム・同じ品質でつくります。医療系では、現役歯科医師が表現面の確認を行います。</p> <section class="sv-sec" data-astro-cid-o7lhc5vl> <h2 class="sv-h" data-astro-cid-o7lhc5vl>こんなときに</h2> <ul class="sv-for" data-astro-cid-o7lhc5vl> <li data-astro-cid-o7lhc5vl>開業にあわせて公式サイトが必要</li><li data-astro-cid-o7lhc5vl>今のサイトが古く、スマホで崩れる・予約につながらない</li><li data-astro-cid-o7lhc5vl>キャンペーンやサービスのLPを作りたい</li><li data-astro-cid-o7lhc5vl>会員制・EC・オンラインスクールなど、機能のあるサイトが必要</li> </ul> </section> <section class="sv-sec" data-astro-cid-o7lhc5vl> <h2 class="sv-h" data-astro-cid-o7lhc5vl>ご依頼いただけること</h2> <p class="sv-pills" data-astro-cid-o7lhc5vl><i data-astro-cid-o7lhc5vl>HP制作</i><i data-astro-cid-o7lhc5vl>LP制作</i><i data-astro-cid-o7lhc5vl>会員制サイト・EC</i><i data-astro-cid-o7lhc5vl>SEO・MEO初期設計</i></p> </section> <section class="sv-sec" data-astro-cid-o7lhc5vl> <h2 class="sv-h" data-astro-cid-o7lhc5vl>進め方</h2> <ol class="sv-steps" data-astro-cid-o7lhc5vl> <li data-astro-cid-o7lhc5vl> <span class="sv-no en" data-astro-cid-o7lhc5vl>01</span> <div data-astro-cid-o7lhc5vl><h3 data-astro-cid-o7lhc5vl>無料相談・お見積り</h3><p data-astro-cid-o7lhc5vl>目的・ページ数・機能・撮影の有無を伺い、5営業日前後でお見積りします。</p></div> </li><li data-astro-cid-o7lhc5vl> <span class="sv-no en" data-astro-cid-o7lhc5vl>02</span> <div data-astro-cid-o7lhc5vl><h3 data-astro-cid-o7lhc5vl>設計・デザイン</h3><p data-astro-cid-o7lhc5vl>構成と文章から組み立て、トップページのデザインで方向性を確認します。</p></div> </li><li data-astro-cid-o7lhc5vl> <span class="sv-no en" data-astro-cid-o7lhc5vl>03</span> <div data-astro-cid-o7lhc5vl><h3 data-astro-cid-o7lhc5vl>実装・公開</h3><p data-astro-cid-o7lhc5vl>実際に動く形でご確認いただき、表示確認・検索エンジン登録まで済ませて公開します。</p></div> </li> </ol> </section> <section class="sv-sec" data-astro-cid-o7lhc5vl> <h2 class="sv-h" data-astro-cid-o7lhc5vl>料金の目安</h2> <div class="sv-price" data-astro-cid-o7lhc5vl> <div class="sv-price-row" data-astro-cid-o7lhc5vl> <span class="sv-price-name" data-astro-cid-o7lhc5vl>Webサイト・LP制作</span> <b class="sv-price-val" data-astro-cid-o7lhc5vl>30万円 〜</b> <small data-astro-cid-o7lhc5vl>多くのご依頼は50万〜80万円の範囲です。ページ数・機能・撮影の有無で変わります</small> </div> </div> <p class="sv-note-sm" data-astro-cid-o7lhc5vl>表示は税別です。正式なお見積りは、ご相談内容をうかがったうえでご提示します。ヒアリングとお見積りは無料です。<a href="/guide/" data-astro-cid-o7lhc5vl>料金と流れの詳細 →</a></p> </section> <section class="sv-sec" data-astro-cid-o7lhc5vl> <h2 class="sv-h" data-astro-cid-o7lhc5vl>関連する制作実績</h2> <div class="sv-cases" data-astro-cid-o7lhc5vl> <a class="sv-case" href="/works/boc" data-astro-cid-o7lhc5vl> <img src="/works/boc.jpg" alt="Beauty Oral Clinic 公式サイト" loading="lazy" data-astro-cid-o7lhc5vl> <span data-astro-cid-o7lhc5vl><b data-astro-cid-o7lhc5vl>Beauty Oral Clinic 公式サイト</b><small data-astro-cid-o7lhc5vl>審美歯科クリニックの開業に合わせ、戦略設計からフルスクラッチで制作</small></span> </a><a class="sv-case" href="/works/whiley" data-astro-cid-o7lhc5vl> <img src="/works/whiley.jpg" alt="whiley｜オンラインホワイトニング処方" loading="lazy" data-astro-cid-o7lhc5vl> <span data-astro-cid-o7lhc5vl><b data-astro-cid-o7lhc5vl>whiley｜オンラインホワイトニング処方</b><small data-astro-cid-o7lhc5vl>診療から定期購入までオンラインで完結するD2Cサービスを設計</small></span> </a><a class="sv-case" href="/works/dp" data-astro-cid-o7lhc5vl> <img src="/works/dp.jpg" alt="株式会社デンタルピュア 法人サイト" loading="lazy" data-astro-cid-o7lhc5vl> <span data-astro-cid-o7lhc5vl><b data-astro-cid-o7lhc5vl>株式会社デンタルピュア 法人サイト</b><small data-astro-cid-o7lhc5vl>教育・実践・支援の3事業を束ねる法人サイト。事業構造の言語化から設計</small></span> </a> </div> </section> <section class="sv-sec" data-astro-cid-o7lhc5vl> <h2 class="sv-h" data-astro-cid-o7lhc5vl>よくあるご質問</h2> <div class="sv-faq" data-astro-cid-o7lhc5vl> <details data-astro-cid-o7lhc5vl><summary data-astro-cid-o7lhc5vl>制作期間はどれくらいですか。</summary><p data-astro-cid-o7lhc5vl>サイト単体で2〜3か月が目安です。開業日が決まっている場合は逆算して組みます。</p></details><details data-astro-cid-o7lhc5vl><summary data-astro-cid-o7lhc5vl>公開後の更新や運用は。</summary><p data-astro-cid-o7lhc5vl>お知らせ等はご自身で更新できる形でお渡しします。継続的な運用・改善のご依頼も、内容に応じてお見積りします。</p></details> </div> </section>  <div class="sv-cta" data-astro-cid-o7lhc5vl> <p data-astro-cid-o7lhc5vl>決まっていることが少なくても構いません。まず無料相談からどうぞ。</p> <a class="sv-contact" href="/contact/?service=build" data-astro-cid-o7lhc5vl>無料相談・お問い合わせ →</a> <a class="sv-sub en" href="/#service" data-astro-cid-o7lhc5vl>← 他のサービスを見る</a> </div> </div> </main> <footer class="sv-foot" data-astro-cid-o7lhc5vl> <div class="wrap" data-astro-cid-o7lhc5vl><small data-astro-cid-o7lhc5vl>© Bridge Works Studio</small></div> </footer>  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script> <script>
+      (function () {
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        /* WORKS動画: 画面幅でPC規格/スマホ規格を出し分け */
+        (function pickVideoSpec(){
+          var mob = window.matchMedia('(max-width: 860px)').matches;
+          document.querySelectorAll('video[data-pc]').forEach(function(v){
+            var src = mob ? (v.dataset.sp || v.dataset.pc) : v.dataset.pc;
+            if (mob && v.dataset.posterSp) v.setAttribute('poster', v.dataset.posterSp);
+            v.setAttribute('src', src);
+            // OUR WORKSのデッキは、カードが表示された瞬間に頭から再生する（gwDeckが制御）。
+            // ここで先に再生すると、3枚目に着く頃には何周も回り終えてしまう。
+            if (v.closest('.gw-item')) return;
+            var p = v.play(); if (p && p.catch) p.catch(function(){});
+          });
+        })();
+
+        var header = document.querySelector('.site-header');
+        function onScroll(){ if (header) header.classList.toggle('scrolled', window.scrollY > 24); }
+        window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+        /* fixed starfield (shows through navy sections, hidden behind opaque light ones) */
+        (function stars(){
+          if (reduce) return;
+          var c = document.getElementById('stars'); if (!c) return;
+          var ctx = c.getContext('2d'); var dpr = Math.min(window.devicePixelRatio||1,2); var w,h,st;
+          function resize(){
+            w=c.width=innerWidth*dpr; h=c.height=innerHeight*dpr;
+            c.style.width=innerWidth+'px'; c.style.height=innerHeight+'px';
+            var n=Math.min(150,Math.floor(innerWidth/9)); st=[];
+            for(var i=0;i<n;i++) st.push({x:Math.random()*w,y:Math.random()*h,r:(Math.random()*1.3+0.2)*dpr,a:Math.random(),s:Math.random()*0.02+0.004});
+          }
+          function tick(){
+            ctx.clearRect(0,0,w,h);
+            for(var i=0;i<st.length;i++){var p=st[i];p.a+=p.s;var tw=0.5+0.5*Math.sin(p.a);
+              ctx.globalAlpha=tw*0.9;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill();}
+            ctx.globalAlpha=1;requestAnimationFrame(tick);
+          }
+          resize();addEventListener('resize',resize);requestAnimationFrame(tick);
+        })();
+
+        /* 一般 / 歯科 モード切替（構図は共通・色と中身だけローミング） */
+        (function modeSwitch(){
+          var root = document.documentElement;
+          if (!root.dataset.mode) root.dataset.mode = 'dental';
+          var btns = [].slice.call(document.querySelectorAll('[data-set-mode]'));
+          function reflect(){ btns.forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-set-mode') === root.dataset.mode ? 'true' : 'false'); }); }
+          reflect();
+          var busy = false;
+          function setMode(m){
+            if (busy || root.dataset.mode === m) return; busy = true;
+            if (reduce){ root.dataset.mode = m; reflect(); try{ localStorage.setItem('bws-mode', m); }catch(e){} busy = false; if (window.ScrollTrigger) ScrollTrigger.refresh(); return; }
+            root.classList.add('mode-anim');
+            setTimeout(function(){
+              root.dataset.mode = m; reflect();
+              try { localStorage.setItem('bws-mode', m); } catch(e){}
+              requestAnimationFrame(function(){ root.classList.remove('mode-anim'); busy = false; if (window.ScrollTrigger) ScrollTrigger.refresh(); });
+            }, 300);
+          }
+          btns.forEach(function(b){ b.addEventListener('click', function(){ setMode(b.getAttribute('data-set-mode')); }); });
+        })();
+
+        /* horizontal carousels (Our Members): arrows scroll the track */
+        (function tracks(){
+          var track = document.getElementById('members-track'); if (!track) return;
+          document.querySelectorAll('[data-mtrack]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+              var amt = track.clientWidth * 0.7;
+              track.scrollBy({ left: btn.getAttribute('data-mtrack') === 'next' ? amt : -amt, behavior: 'smooth' });
+            });
+          });
+        })();
+
+        if (!window.gsap || !window.ScrollTrigger || new URLSearchParams(location.search).has('nogsap')){ document.querySelectorAll('[data-reveal],[data-split] .word,[data-chars]').forEach(function(el){el.style.opacity=1;}); return; }
+        gsap.registerPlugin(ScrollTrigger);
+        if (reduce){
+          document.querySelectorAll('[data-reveal]').forEach(function(el){el.style.opacity=1;});
+          var gws = document.querySelector('.gw'); if (gws) gws.classList.add('gw-static');
+          return;
+        }
+
+        document.querySelectorAll('[data-split]').forEach(function(el){
+          var parts=el.textContent.split(/(\s+)/); el.textContent='';
+          parts.forEach(function(wd){ if(/^\s+$/.test(wd)){el.appendChild(document.createTextNode(wd));return;}
+            var s=document.createElement('span'); s.className='word'; s.textContent=wd; el.appendChild(s); });
+        });
+        document.querySelectorAll('[data-split]').forEach(function(el){
+          if (el.closest('#business')) {           // BUSINESSはピン演出側（見出し全体をフェード）で制御
+            el.querySelectorAll('.word').forEach(function(w){ w.style.opacity = 1; });
+            return;
+          }
+          gsap.fromTo(el.querySelectorAll('.word'),{yPercent:115,opacity:0},
+            {yPercent:0,opacity:1,duration:0.9,ease:'power3.out',stagger:0.06,scrollTrigger:{trigger:el,start:'top 90%'}});
+        });
+
+        /* giftee-style per-CHARACTER reveal: blur(10px)->0 + slide down + fade, staggered */
+        document.querySelectorAll('[data-chars]').forEach(function (el) {
+          var chars = el.textContent.split('');
+          el.textContent = '';
+          chars.forEach(function (ch) {
+            var s = document.createElement('span'); s.className = 'char'; s.textContent = ch; el.appendChild(s);
+          });
+          el.style.opacity = 1;
+          gsap.fromTo(el.querySelectorAll('.char'),
+            { opacity: 0, y: -22, filter: 'blur(10px)' },
+            { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1, ease: 'power3.out', stagger: 0.05,
+              scrollTrigger: { trigger: el, start: 'top 92%' } });
+        });
+        var bizReveals = [].slice.call(document.querySelectorAll('#business [data-reveal]'));
+        var otherReveals = [].slice.call(document.querySelectorAll('[data-reveal]')).filter(function(el){ return bizReveals.indexOf(el) === -1; });
+        ScrollTrigger.batch(otherReveals,{start:'top 90%',onEnter:function(els){
+          gsap.fromTo(els,{y:46,opacity:0},{y:0,opacity:1,duration:0.9,ease:'power3.out',stagger:0.09,overwrite:true});}});
+        // BUSINESS内はピン演出（下のbizPin）で制御
+
+        /* ---- MV hero text: hold during the first part of the scroll (camera rises to the bridge),
+               then slide up. About then fades in quickly from below over the 3D. ---- */
+        var mvMob = window.matchMedia('(max-width: 720px)').matches;
+        gsap.fromTo('.mv3d-overlay', { y: 0 }, { y: '-118vh', ease: 'none',
+          scrollTrigger: { trigger: '.mv3d', start: mvMob ? '16% top' : '32% top', end: mvMob ? '38% top' : '52% top', scrub: 1 } });
+        // About appears over the pure-sky ending: soft fade-in from just below center
+        /* 携帯もPCと同じ挙動に揃える（2026-07-30）。
+           セクションはCSSの sticky で画面中央にホールドされ、背後の3Dだけが動く。 */
+        gsap.fromTo('#about .about-ren', { autoAlpha: 0, y: 44 }, { autoAlpha: 1, y: 0, duration: 1.3, ease: 'power2.out',
+          scrollTrigger: { trigger: '#about', start: 'top top', toggleActions: 'play none none reverse' } });
+        // About is held via CSS sticky (.about-hold); no GSAP pin needed
+        // the 3D canvas is a FIXED background behind the hero + About; hide it once Service (opaque) takes over
+        ScrollTrigger.create({ trigger: '#works', start: 'top 34%', end: 'max',
+          onEnter: function(){ gsap.to('#hero3d', { autoAlpha: 0, duration: 0.7, overwrite: 'auto' }); },
+          onLeaveBack: function(){ gsap.to('#hero3d', { autoAlpha: 1, duration: 0.7, overwrite: 'auto' }); } });
+
+        // CLOUD PASS: three cloud layers rise from the bottom at different speeds
+        [['.cp-b3', 104, -42], ['.cp-b2', 112, -22], ['.cp-b1', 120, -6]].forEach(function (cfg) {
+          gsap.fromTo(cfg[0], { yPercent: cfg[1] }, { yPercent: cfg[2], ease: 'none',
+            scrollTrigger: { trigger: '#cloudpass', start: 'top bottom', end: 'bottom top', scrub: 1 } });
+        });
+
+        // WORKS: GOONS-style pinned deck — cases crossfade while the stage stays put
+        (function gwDeck(){
+          var items = gsap.utils.toArray('.gw-item'); if (!items.length) return;
+          gsap.set(items, { autoAlpha: 0, y: 44 });
+          gsap.set(items[0], { autoAlpha: 1, y: 0 });
+          var tl = gsap.timeline({ scrollTrigger: { trigger: '#works', start: 'top top', end: 'bottom bottom', scrub: 0.5 } });
+          items.forEach(function(el, i){
+            if (!i) return;
+            tl.to(items[i-1], { autoAlpha: 0, y: -40, duration: .45, ease: 'power1.in' }, i)
+              .fromTo(el, { autoAlpha: 0, y: 48 }, { autoAlpha: 1, y: 0, duration: .5, ease: 'power1.out' }, i + .3);
+          });
+          tl.to({}, { duration: .7 });
+
+          /* いま表示されているカードの動画だけを、頭から再生する。
+             不透明度がいちばん高いものを「表示中」とみなす（タイムラインの時刻計算に依存しない）。 */
+          var vids = items.map(function (el) { return el.querySelector('video'); });
+          function syncPlayback(on) {
+            var best = 0, bestOp = -1;
+            items.forEach(function (el, i) {
+              var op = +gsap.getProperty(el, 'opacity');
+              if (op > bestOp) { bestOp = op; best = i; }
+            });
+            vids.forEach(function (v, i) {
+              if (!v) return;
+              if (on && i === best && bestOp > 0.5) {
+                if (v.paused) { try { v.currentTime = 0; } catch (e) {}
+                  var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+              } else if (!v.paused) {
+                v.pause(); try { v.currentTime = 0; } catch (e) {}
+              }
+            });
+          }
+          /* スクラブは指を止めたあとも余韻で動き続ける。ScrollTriggerのonUpdateはスクロール中しか
+             呼ばれないため、切替の途中で前のカードが再生されたまま残る。
+             タイムライン自身のonUpdateに繋いで、余韻の間も追従させる。 */
+          tl.eventCallback('onUpdate', function () { syncPlayback(true); });
+          ScrollTrigger.create({
+            trigger: '#works', start: 'top bottom', end: 'bottom top',
+            onEnter: function () { syncPlayback(true); },
+            onEnterBack: function () { syncPlayback(true); },
+            onLeave: function () { syncPlayback(false); },
+            onLeaveBack: function () { syncPlayback(false); },
+          });
+        })();
+
+        // tunnel sections (service/works): fly THROUGH the receding squares
+        document.querySelectorAll('.t-tunnel').forEach(function (sec) {
+          var t = sec.querySelector('.tunnel'); if (!t) return;
+          gsap.fromTo(t, { scale: 0.55, rotate: -6 }, { scale: 2.1, rotate: 6, ease: 'none',
+            scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: 1 } });
+        });
+
+        // whole content block drifts up across the (now tall) section = sustained camera motion
+        gsap.utils.toArray('.section .wrap, .lets .wrap').forEach(function (w) {
+          if (w.closest('#about')) return; // About is pinned — no drift
+          // .section-short は中身なりの高さなので、ドリフトさせると overflow:hidden に当たって
+          // 見出しの上が切れる（MEMBERSで実測 -126px）。深さを持たないぶん演出も外す。
+          if (w.closest('.section-short')) return;
+          gsap.fromTo(w, { y: '14vh' }, { y: '-14vh', ease: 'none',
+            scrollTrigger: { trigger: w.closest('section'), start: 'top bottom', end: 'bottom top', scrub: 1 } });
+        });
+        // big EN labels drift a touch more (depth)
+        gsap.utils.toArray('.section .sec-en').forEach(function (h) {
+          gsap.fromTo(h, { yPercent: 18 }, { yPercent: -18, ease: 'none',
+            scrollTrigger: { trigger: h.closest('.section'), start: 'top bottom', end: 'bottom top', scrub: 1.2 } });
+        });
+
+        // COLOR JOURNEY: crossfade the background color as each scene reaches mid-screen
+        // (strix changes scene colors navy→lavender→sky as you "fly" through)
+        var stops = [
+          ['.mv', '#5a4fa8'], ['#about', '#f1ede6'], ['#works', '#f7fafe'], ['#service', '#b4a9ea'],
+          ['#design', '#6e6e6e'], ['#blog', '#f2f1ed'], ['#news', '#f2f1ed'], ['#company', '#8fc8f7'], ['#members', '#f2f1ed'], ['#price', '#f7fafe'], ['#contact', '#0e1a52']
+        ];
+        stops.forEach(function (s) {
+          var el = document.querySelector(s[0]); if (!el) return;
+          ScrollTrigger.create({ trigger: el, start: 'top 55%', end: 'bottom 45%',
+            onEnter: function () { gsap.to('.journey', { backgroundColor: s[1], duration: 0.7, overwrite: 'auto' }); },
+            onEnterBack: function () { gsap.to('.journey', { backgroundColor: s[1], duration: 0.7, overwrite: 'auto' }); } });
+        });
+
+        // works/service deco: floating accents rush past (strix works_bgDecoItem scale 1.33→2.66)
+        document.querySelectorAll('.t-tunnel .tunnel .core').forEach(function (core) {
+          gsap.fromTo(core, { scale: 0.6 }, { scale: 1.4, ease: 'none',
+            scrollTrigger: { trigger: core.closest('.section'), start: 'top bottom', end: 'bottom top', scrub: 1 } });
+        });
+
+        /* WORKS "What We Design": PIN the section, scroll cycles image + text through items */
+        (function whatWeDesign(){
+          var sec = document.getElementById('design'); if (!sec) return;
+          var frames = sec.querySelectorAll('.wd2-frame');
+          var texts = sec.querySelectorAll('.wd2-text');
+          var cur = sec.querySelector('.wd2-counter .cur');
+          var counter = sec.querySelector('.wd2-counter');
+          var N = frames.length; if (!N) return;
+          function setActive(i){
+            for (var k = 0; k < N; k++){ frames[k].classList.toggle('is-active', k === i); texts[k].classList.toggle('is-active', k === i); }
+            /* 最後の締め（READ MORE）ステップは番号を持たないのでカウンターごと隠す */
+            var isCta = texts[i].hasAttribute('data-cta');
+            if (counter) counter.style.visibility = isCta ? 'hidden' : 'visible';
+            if (cur && !isCta) cur.textContent = '(' + ('0' + (i + 1)).slice(-2) + ')';
+          }
+          setActive(0);
+          ScrollTrigger.create({
+            trigger: sec, start: 'top top', end: '+=' + (N * 85) + '%', pin: true, anticipatePin: 1, refreshPriority: -1,
+            onUpdate: function (self) { setActive(Math.min(N - 1, Math.floor(self.progress * N))); }
+          });
+        })();
+
+        /* BUSINESS: 画面を固定し、その場で 見出し→図→カード→締め を順に出す */
+        (function bizPin(){
+          var sec = document.getElementById('business'); if (!sec) return;
+          gsap.set('#business [data-reveal]', { opacity: 1, y: 0 });   // 子要素は親側のフェードで制御
+          var sp = window.matchMedia('(max-width: 760px)').matches;
+          if (sp) {
+            /* 携帯: セクションを画面中央で止め、その場で 見出し→図＋凡例→まるごと/スポット を
+               2〜3スクロールぶんで出し切る。CSS側で1画面に収まる高さに詰めてある。
+               ブラーは端末負荷が高いので携帯では使わない（フェードと上下のずれだけ）。 */
+            var tlSp = gsap.timeline({ scrollTrigger: {
+              trigger: sec, start: 'top top', end: '+=170%', pin: true, anticipatePin: 1,
+              scrub: 0.4, invalidateOnRefresh: true, refreshPriority: 1 } });
+            var Fs = { autoAlpha: 0, y: 18 }, Ts = { autoAlpha: 1, y: 0, ease: 'power2.out' };
+            tlSp.fromTo('#business .biz-head', Fs, Object.assign({ duration: 0.6 }, Ts), 0.05)
+                .fromTo('#business .cycle',    Fs, Object.assign({ duration: 0.7 }, Ts), 0.55)
+                .fromTo('#business .biz-mode', Fs,
+                        Object.assign({ duration: 0.5, stagger: 0.12 }, Ts), 1.15)
+                .to({}, { duration: 0.5 });   // 出揃ってからの余韻
+            return;
+          }
+          var tl = gsap.timeline({ scrollTrigger: {
+            trigger: sec, start: 'top top', end: '+=220%', pin: true, anticipatePin: 1, scrub: 0.5,
+            invalidateOnRefresh: true, refreshPriority: 1 } });
+          var F = { autoAlpha: 0, filter: 'blur(8px)' }, T = { autoAlpha: 1, filter: 'blur(0px)', ease: 'power2.out' };
+          tl.fromTo('#business .biz-head', F, Object.assign({ duration: 0.7 }, T), 0.08)
+            .fromTo('#business .cycle',    F, Object.assign({ duration: 0.8 }, T), 0.75)
+            .fromTo('#business .biz-mode',  { autoAlpha: 0, filter: 'blur(6px)' },
+                    { autoAlpha: 1, filter: 'blur(0px)', ease: 'power2.out', duration: 0.55, stagger: 0.14 }, 1.55)
+            .fromTo('#business .biz-note', F, Object.assign({ duration: 0.6 }, T), 2.35)
+            .to({}, { duration: 0.5 });   // 出揃ってからの余韻
+        })();
+
+        /* SERVICE（携帯）: セクションを画面に固定し、縦スクロールをカードの横送りに変換する。
+           カードは .svc2-list の中に横一列（各カード flex:0 0 100%）で並んでいるので、
+           list を自身の幅ぶんずつ左へ動かせば1枚送りになる。 */
+        (function svcSlide(){
+          if (!window.matchMedia('(max-width: 760px)').matches) return;
+          var sec = document.getElementById('service'); if (!sec) return;
+          var list = sec.querySelector('.svc2-list'); if (!list) return;
+          // 一般/歯科で片方はCSSで非表示なので、実際に並んでいる枚数だけを数える
+          var rows = [].slice.call(list.querySelectorAll('.svc2-row')).filter(function (r) {
+            return r.offsetParent !== null;
+          });
+          var n = rows.length; if (n < 2) return;
+          var dots = [].slice.call(sec.querySelectorAll('[data-svc-dot]'));
+          gsap.to(list, {
+            xPercent: -100 * (n - 1), ease: 'none',
+            scrollTrigger: {
+              trigger: sec, start: 'top top', end: '+=' + (n * 90) + '%',
+              pin: true, anticipatePin: 1, scrub: 0.4,
+              invalidateOnRefresh: true, refreshPriority: 1,
+              onUpdate: function (self) {
+                var i = Math.round(self.progress * (n - 1));
+                dots.forEach(function (d, k) { d.classList.toggle('is-on', k === i); });
+              },
+            },
+          });
+        })();
+
+        ScrollTrigger.sort();
+        ScrollTrigger.refresh();
+
+        /* この時点ではWebフォント・画像・3Dキャンバスの寸法が未確定で、
+           ここで計算したトリガー位置は後からずれる。読み込み完了後に必ず取り直す。
+           また、ページ途中でのリロード時に位置復元とトリガー計算が競合するため復元は手動にする。 */
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+        window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(function () { ScrollTrigger.refresh(); });
+        }
+
+        /* デッキ（チラシ / 広告動画）: カードが表示された瞬間に1枚目からスライド開始 */
+        (function decks(){
+          document.querySelectorAll('[data-deck]').forEach(function(stack){
+            var cards = [].slice.call(stack.querySelectorAll('[data-card]')); var n = cards.length; if (!n) return;
+            var POS = [ {x:0,s:1,z:40,o:1}, {x:54,s:.93,z:30,o:.9}, {x:106,s:.86,z:20,o:.78}, {x:152,s:.8,z:10,o:.66} ];
+            var vids = [].slice.call(stack.querySelectorAll('video'));
+            var order = cards.map(function(_, i){ return i; });
+            function apply(){
+              cards.forEach(function(c, i){
+                var p = POS[Math.min(order[i], POS.length - 1)];
+                c.style.transform = 'translate(calc(-50% + ' + p.x + 'px), -50%) scale(' + p.s + ')';
+                c.style.zIndex = p.z; c.style.opacity = p.o;
+              });
+            }
+            function reset(){ order = cards.map(function(_, i){ return i; }); apply(); }  // 1枚目を前面に
+            function next(){ order = order.map(function(o){ return (o + n - 1) % n; }); apply(); }
+            reset();
+            var timer = null;
+            function stop(){ if (timer) { clearInterval(timer); timer = null; } }
+            function start(){
+              stop(); reset();
+              vids.forEach(function(v){ v.muted = true; try { v.currentTime = 0; } catch(e){} var pr = v.play(); if (pr && pr.catch) pr.catch(function(){}); });
+              if (!reduce) timer = setInterval(next, 4200);
+            }
+            var btn = stack.querySelector('[data-deck-next]');
+            if (btn) btn.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); next(); if (timer) { clearInterval(timer); timer = setInterval(next, 4200); } });
+            /* 親カードが is-active（＝スクロールで表示）になったら開始、外れたら停止 */
+            var frame = stack.closest('.wd2-frame');
+            if (frame) {
+              var mo = new MutationObserver(function(){ if (frame.classList.contains('is-active')) start(); else stop(); });
+              mo.observe(frame, { attributes: true, attributeFilter: ['class'] });
+              if (frame.classList.contains('is-active')) start();
+            } else { start(); }
+          });
+        })();
+      })();
+    </script> </body> </html>
