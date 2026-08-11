@@ -352,7 +352,9 @@
             gwStage.style.filter = rv < 1 ? 'blur(' + ((1 - rv) * 6).toFixed(1) + 'px)' : '';
           }
           // 時刻: 街歩き（worksピン）で夕方へ、MEMBERSで夜へ
-          const duskF = smooth(clamp((-dr.top) / (vh * 5.9), 0, 1));
+          // 夕方化はWORKS到着の少し前から始める。到着後ゼロスタートだと、
+          // 直前の街の空気から一瞬「昼の青空」に戻って見える（山田報告）
+          const duskF = smooth(clamp((vh * 1.2 - dr.top) / (vh * 1.2 + vh * 5.9), 0, 1));
           const mr = memSec ? memSec.getBoundingClientRect() : blr;
           const nightF = smooth(clamp((vh * 1.15 - mr.top) / (vh * 1.9), 0, 1));
           for (const k of ['top', 'mid', 'bot']) {
@@ -382,10 +384,13 @@
           renderer.setClearColor(fogCol, covered ? 1 : 0);
           const bobY = Math.sin(t * 0.5) * 1.1 * (1 - d);
           const swayX = Math.sin(t * 0.32) * 1.6 * (1 - d);
-          // 第3降下: BUSINESSの見下ろしから、街の中（目線の高さ）へ
-          // 2026-08-12 山田仕様: 街に降りるのは SERVICE。（俯瞰=BUSINESS → 街中=SERVICE → 夕方の街歩き=WORKS）
+          // 第3降下: BUSINESSの見下ろしから、街の中（目線の高さ）へ。
+          // 2026-08-12: SERVICEで降下を始め、WORKS到着でちょうど目線に着く「連続した1本の降下」。
+          // 以前はSERVICE中に降ろし切っていたため、SERVICE末〜WORKS間でカメラが街の外に駐機し、
+          // 画面の半分が空だけになる破綻フレーミングが出ていた（山田報告）
           const svr = svcSec ? svcSec.getBoundingClientRect() : dr;
-          const g = smooth(clamp((vh * 1.1 - svr.top) / (vh * 1.35), 0, 1));
+          const gSpan = Math.max(dr.top - svr.top, vh * 0.5) + vh * 0.9;   // service到着→worksピンまでの距離
+          const g = smooth(clamp((vh * 0.9 - svr.top) / gSpan, 0, 1));
           // designピン中はゆっくり通りを前進
           const streetZ = camC.z + 26 - clamp((-dr.top) / (vh * 5.9), 0, 1) * 52;
           const px = lerp(lerp(camA.x, camB.x, d) + swayX, camC.x + Math.sin(t * 0.3) * 0.7, g);
