@@ -385,12 +385,11 @@
           const bobY = Math.sin(t * 0.5) * 1.1 * (1 - d);
           const swayX = Math.sin(t * 0.32) * 1.6 * (1 - d);
           // 第3降下: BUSINESSの見下ろしから、街の中（目線の高さ）へ。
-          // 2026-08-12: SERVICEで降下を始め、WORKS到着でちょうど目線に着く「連続した1本の降下」。
-          // 以前はSERVICE中に降ろし切っていたため、SERVICE末〜WORKS間でカメラが街の外に駐機し、
-          // 画面の半分が空だけになる破綻フレーミングが出ていた（山田報告）
-          const svr = svcSec ? svcSec.getBoundingClientRect() : dr;
-          const gSpan = Math.max(dr.top - svr.top, vh * 0.5) + vh * 0.9;   // service到着→worksピンまでの距離
-          const g = smooth(clamp((vh * 0.9 - svr.top) / gSpan, 0, 1));
+          // ⚠️ 2026-08-12の教訓（docs/3d-background.md #6）: 降下を早める・引き延ばすと、
+          // カメラが「街の入口手前」（camC.z+26付近）に長時間とどまる。そこは流れる雲の
+          // 通り道なので、時間帯によって画面が雲だらけになる。SERVICEは俯瞰のまま保持し、
+          // WORKS直前の短いランプ（原典版）で一気に降りるのが正しい
+          const g = smooth(clamp((vh * 1.1 - dr.top) / (vh * 1.35), 0, 1));
           // designピン中はゆっくり通りを前進
           const streetZ = camC.z + 26 - clamp((-dr.top) / (vh * 5.9), 0, 1) * 52;
           const px = lerp(lerp(camA.x, camB.x, d) + swayX, camC.x + Math.sin(t * 0.3) * 0.7, g);
