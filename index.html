@@ -812,8 +812,10 @@
           /* 2026-08-12: このcanvasは position:fixed の不透明フルスクリーンで、
              ヒーローを過ぎても画面を覆い続け、後続のcity3dの雲・街を隠してしまう
              （GSAPの変形が効く環境でだけ偶然封じ込められていた）。
-             セクションが画面外に出たら必ず隠す。戻ったら再表示する */
-          canvas.style.visibility = rect.bottom <= 0 ? 'hidden' : 'visible';
+             ABOUTまではこの空が背景を担うため残し、雲シーン（design）が近づいたら隠す */
+          const dsec = document.getElementById('design');
+          const dTop = dsec ? dsec.getBoundingClientRect().top : Infinity;
+          canvas.style.visibility = (rect.bottom <= 0 && dTop <= window.innerHeight * 0.9) ? 'hidden' : 'visible';
         }
         window.addEventListener('scroll', readScroll, { passive: true });
         readScroll();
