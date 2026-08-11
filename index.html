@@ -65,6 +65,7 @@
     const aboutSec = document.getElementById('about');
     const designSec = document.getElementById('design');
     const blogSec = document.getElementById('blog');
+    const svcSec = document.getElementById('service');
     const memSec = document.getElementById('members');
     const gwStage = document.querySelector('.gw-stage');
     const bizSec = document.getElementById('business');
@@ -363,7 +364,9 @@
           const bobY = Math.sin(t * 0.5) * 1.1 * (1 - d);
           const swayX = Math.sin(t * 0.32) * 1.6 * (1 - d);
           // 第3降下: BUSINESSの見下ろしから、街の中（目線の高さ）へ
-          const g = smooth(clamp((vh * 1.1 - dr.top) / (vh * 1.35), 0, 1));
+          // 2026-08-12 山田仕様: 街に降りるのは SERVICE。（俯瞰=BUSINESS → 街中=SERVICE → 夕方の街歩き=WORKS）
+          const svr = svcSec ? svcSec.getBoundingClientRect() : dr;
+          const g = smooth(clamp((vh * 1.1 - svr.top) / (vh * 1.35), 0, 1));
           // designピン中はゆっくり通りを前進
           const streetZ = camC.z + 26 - clamp((-dr.top) / (vh * 5.9), 0, 1) * 52;
           const px = lerp(lerp(camA.x, camB.x, d) + swayX, camC.x + Math.sin(t * 0.3) * 0.7, g);
@@ -384,6 +387,9 @@
             if (c.position.x > 175) c.position.x = -175;
           }
           renderer.render(scene, camera);
+          /* 検証用の計測点（UIなし・console汚染なし）。安定確認後に外してよい */
+          window.__flight = { e: +e.toFixed(3), d: +d.toFixed(3), g: +g.toFixed(3), sweep: +sweep.toFixed(3),
+            inside: +inside.toFixed(3), covered, alpha: +alpha.toFixed(3), duskF: +duskF.toFixed(3) };
           requestAnimationFrame(safeTick);
         };
         /* 2026-08-10: tickが一度でも例外を投げるとrAFチェーンが切れ、
