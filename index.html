@@ -420,7 +420,9 @@
             'frames:' + dbgFrames + ' | e:' + e.toFixed(2) + ' sweep:' + sweep.toFixed(2) +
             ' | covered:' + covered + ' world:' + worldGrp.visible +
             ' | alpha:' + alpha.toFixed(2) + ' | crTop:' + Math.round(cr.top) +
-            ' d:' + d.toFixed(2) + ' g:' + g.toFixed(2) + ' inside:' + inside.toFixed(2) + ' vh:' + vh; }
+            ' d:' + d.toFixed(2) + ' g:' + g.toFixed(2) + ' inside:' + inside.toFixed(2) + ' vh:' + vh +
+            ' | cam:' + Math.round(camera.position.x) + ',' + Math.round(camera.position.y) + ',' + Math.round(camera.position.z) +
+            ' look:' + Math.round(look.y) + ' dusk:' + duskF.toFixed(2); }
           requestAnimationFrame(safeTick);
         };
         /* 2026-08-10: tickが一度でも例外を投げるとrAFチェーンが切れ、
