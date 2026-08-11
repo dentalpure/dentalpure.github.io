@@ -333,7 +333,10 @@
           const inCloudHold = (cr.top <= 2 && d < 0.45) ? 1 : 0;
           inside = Math.max(inside, inCloudHold);
           // 完全に覆われた瞬間だけ世界を切替（スワップは雲の内側で見えない）
-          const shouldCover = sweep > 0.985;
+          /* 2026-08-12: トランジット雲の演出（sweep）だけに頼ると、環境によって
+             「覆われた」判定が発火せず、雲・街の世界が最後まで非表示のまま素通りする事故が起きた
+             （山田実機のスクショ比較で確認）。designが半画面まで来たら位置ベースで必ず切り替える */
+          const shouldCover = sweep > 0.985 || cr.top <= vh * 0.5;
           /* 2026-08-12: ラッチ式に変更。境界近傍でsweepが揺れると世界が点滅／消失する事故があったため、
              一度覆われたら旅程中は表示を維持する（退場はexitのalphaフェードが担う） */
           if (shouldCover && !covered) { covered = true; worldGrp.visible = true; }
