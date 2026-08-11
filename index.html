@@ -312,6 +312,10 @@
           const target = Math.min(enter, 1 - exit);
           alpha += (target - alpha) * 0.08;
           canvas.style.opacity = alpha.toFixed(3);
+          /* HUDは透明時（早期return時）も更新する。ここで出る frames が増えていれば描画ループは生きている */
+          if (dbgEl) { dbgFrames++; if (dbgFrames % 10 === 0) dbgEl.textContent =
+            'frames:' + dbgFrames + ' | e:' + e.toFixed(2) + ' | alpha:' + alpha.toFixed(2) +
+            ' | covered:' + covered + ' world:' + worldGrp.visible + ' | crTop:' + Math.round(cr.top) + ' vh:' + vh; }
           if (alpha < 0.005) { requestAnimationFrame(safeTick); return; }
 
           // 降下: BUSINESS が近づく〜画面上部に来るまでで 0→1
@@ -400,7 +404,7 @@
           window.__flight = { e: +e.toFixed(3), d: +d.toFixed(3), g: +g.toFixed(3), sweep: +sweep.toFixed(3),
             inside: +inside.toFixed(3), covered, alpha: +alpha.toFixed(3), duskF: +duskF.toFixed(3) };
           /* ?debug で画面左下に飛行状態を表示（通常閲覧には出ない・原因特定用） */
-          if (dbgEl) { dbgFrames++; if (dbgFrames % 10 === 0) dbgEl.textContent =
+          if (dbgEl) { if (dbgFrames % 10 === 0) dbgEl.textContent =
             'frames:' + dbgFrames + ' | e:' + e.toFixed(2) + ' sweep:' + sweep.toFixed(2) +
             ' | covered:' + covered + ' world:' + worldGrp.visible +
             ' | alpha:' + alpha.toFixed(2) + ' | crTop:' + Math.round(cr.top) +
