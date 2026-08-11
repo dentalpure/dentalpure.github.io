@@ -371,6 +371,11 @@
           // 雲の中はミルキーな白フォグ、降りると晴れる → 夕・夜で色移り
           fogCol.copy(FOG_CLOUD).lerp(FOG_CITY, d).lerp(FOG_DUSK, duskF * 0.85).lerp(FOG_NIGHT, nightF);
           scene.fog.color.copy(fogCol);
+          /* 2026-08-12 山田仕様「What We Design＝立体的な雲の中（グレーの背景）」:
+             空ドームは fog:false のため、雲の中でも空だけ青く抜けてしまっていた（HUD実測で特定）。
+             雲内部にいる間（接近完了〜降下前）はドーム自体を霧色に染め、降下とともに晴れていく */
+          const imm = clamp(Math.min(e * 1.2, 1 - d * 2.2), 0, 1);
+          if (imm > 0.001) for (const k of ['top', 'mid', 'bot']) skyMat.uniforms[k].value.lerp(fogCol, imm);
           scene.fog.near = lerp(lerp(34, 6, inside), 60, d);
           scene.fog.far = lerp(lerp(240, 110, inside), 430, d);
           renderer.setClearColor(fogCol, covered ? 1 : 0);
