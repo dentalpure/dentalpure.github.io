@@ -1094,7 +1094,12 @@
           }
           setActive(0);
           ScrollTrigger.create({
-            trigger: sec, start: 'top top', end: '+=' + (N * 85) + '%', pin: true, anticipatePin: 1, refreshPriority: -1,
+            /* refreshPriority はページ内の順序に合わせる（大きいほど先に再計算）。
+               designがページ末尾にあった頃は -1（最後）だったが、2026-08-09 の順序入替で
+               BUSINESS/SERVICE（=1）より前に来たため 2 に変更。-1 のままだと後続ピンの
+               開始位置がこのピンのスペーサーを含まない古いレイアウトで確定し、
+               BUSINESSがdesignのピン区間内で同時にピン留めされて画面が重なる */
+            trigger: sec, start: 'top top', end: '+=' + (N * 85) + '%', pin: true, anticipatePin: 1, refreshPriority: 2,
             onUpdate: function (self) { setActive(Math.min(N - 1, Math.floor(self.progress * N))); }
           });
         })();
