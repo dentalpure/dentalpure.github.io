@@ -311,7 +311,7 @@
           const target = Math.min(enter, 1 - exit);
           alpha += (target - alpha) * 0.08;
           canvas.style.opacity = alpha.toFixed(3);
-          if (alpha < 0.005) { requestAnimationFrame(tick); return; }
+          if (alpha < 0.005) { requestAnimationFrame(safeTick); return; }
 
           // 降下: BUSINESS が近づく〜画面上部に来るまでで 0→1
           const d = smooth(clamp((vh * 1.7 - br.top) / (vh * 1.55), 0, 1));
@@ -384,9 +384,17 @@
             if (c.position.x > 175) c.position.x = -175;
           }
           renderer.render(scene, camera);
-          requestAnimationFrame(tick);
+          requestAnimationFrame(safeTick);
         };
-        requestAnimationFrame(tick);
+        /* 2026-08-10: tickが一度でも例外を投げるとrAFチェーンが切れ、
+           以降ずっと背景が消えたままになる（フリーズ由来の描画例外などで実際に発生）。
+           フレーム単位でtry-catchし、失敗フレームは捨てて次フレームで継続する */
+        const safeTick = (tms) => {
+          try { tick(tms); }
+          catch (err) { console.warn('city3d frame skipped:', err); requestAnimationFrame(safeTick); }
+        };
+        canvas.addEventListener('webglcontextlost', (ev) => { ev.preventDefault(); }, false);
+        requestAnimationFrame(safeTick);
       }
     }
   </script>  <script type="module">
