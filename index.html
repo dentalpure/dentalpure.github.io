@@ -399,6 +399,12 @@
           /* 検証用の計測点（UIなし・console汚染なし）。安定確認後に外してよい */
           window.__flight = { e: +e.toFixed(3), d: +d.toFixed(3), g: +g.toFixed(3), sweep: +sweep.toFixed(3),
             inside: +inside.toFixed(3), covered, alpha: +alpha.toFixed(3), duskF: +duskF.toFixed(3) };
+          /* ?debug で画面左下に飛行状態を表示（通常閲覧には出ない・原因特定用） */
+          if (dbgEl) { dbgFrames++; if (dbgFrames % 10 === 0) dbgEl.textContent =
+            'frames:' + dbgFrames + ' | e:' + e.toFixed(2) + ' sweep:' + sweep.toFixed(2) +
+            ' | covered:' + covered + ' world:' + worldGrp.visible +
+            ' | alpha:' + alpha.toFixed(2) + ' | crTop:' + Math.round(cr.top) +
+            ' d:' + d.toFixed(2) + ' g:' + g.toFixed(2) + ' inside:' + inside.toFixed(2) + ' vh:' + vh; }
           requestAnimationFrame(safeTick);
         };
         /* 2026-08-10: tickが一度でも例外を投げるとrAFチェーンが切れ、
@@ -409,6 +415,13 @@
           catch (err) { console.warn('city3d frame skipped:', err); requestAnimationFrame(safeTick); }
         };
         canvas.addEventListener('webglcontextlost', (ev) => { ev.preventDefault(); }, false);
+        let dbgEl = null, dbgFrames = 0;
+        if (new URLSearchParams(location.search).has('debug')) {
+          dbgEl = document.createElement('div');
+          dbgEl.style.cssText = 'position:fixed;left:8px;bottom:8px;z-index:99999;background:rgba(0,0,0,.8);color:#0f0;font:11px/1.5 monospace;padding:6px 9px;border-radius:6px;pointer-events:none;max-width:95vw;';
+          dbgEl.textContent = 'debug: city3d 起動待ち…（この文字のまま変わらなければ描画ループが死んでいます）';
+          document.body.appendChild(dbgEl);
+        }
         requestAnimationFrame(safeTick);
       }
     }
