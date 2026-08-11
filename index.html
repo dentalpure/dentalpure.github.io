@@ -327,10 +327,16 @@
           transit.position.y = lerp(86, 76, sweep) + Math.sin(t * 0.55) * 1.4;
           // 包まれた度合い: カメラとの距離で霧が濃くなる（=雲の中へ）
           const dxT = transit.position.x, dzT = transit.position.z - 46;
-          const inside = clamp(1 - Math.sqrt(dxT * dxT + dzT * dzT) / 42, 0, 1);
+          let inside = clamp(1 - Math.sqrt(dxT * dxT + dzT * dzT) / 42, 0, 1);
+          /* 2026-08-12 山田仕様: What We Design＝立体的な雲の中（グレーの霧）。
+             トランジット雲との距離計算に頼らず、designピン中〜降下前は雲内部の霧を保証する */
+          const inCloudHold = (cr.top <= 2 && d < 0.45) ? 1 : 0;
+          inside = Math.max(inside, inCloudHold);
           // 完全に覆われた瞬間だけ世界を切替（スワップは雲の内側で見えない）
           const shouldCover = sweep > 0.985;
-          if (shouldCover !== covered) { covered = shouldCover; worldGrp.visible = covered; }
+          /* 2026-08-12: ラッチ式に変更。境界近傍でsweepが揺れると世界が点滅／消失する事故があったため、
+             一度覆われたら旅程中は表示を維持する（退場はexitのalphaフェードが担う） */
+          if (shouldCover && !covered) { covered = true; worldGrp.visible = true; }
           // WORKSの文字・カードは、画面が固定（ピン）されてから"その場で"ふわっと出現
           if (gwStage) {
             const rv = smooth(clamp((-wr.top) / (vh * 0.16), 0, 1));   // ピン開始後の最初の16vhでフェード
