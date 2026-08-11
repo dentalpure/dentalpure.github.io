@@ -809,6 +809,11 @@
           const total = section.offsetHeight - window.innerHeight;
           target = total > 0 ? Math.min(Math.max(-rect.top / total, 0), 1) : 0;
           if (reduce) target = 0.12;
+          /* 2026-08-12: このcanvasは position:fixed の不透明フルスクリーンで、
+             ヒーローを過ぎても画面を覆い続け、後続のcity3dの雲・街を隠してしまう
+             （GSAPの変形が効く環境でだけ偶然封じ込められていた）。
+             セクションが画面外に出たら必ず隠す。戻ったら再表示する */
+          canvas.style.visibility = rect.bottom <= 0 ? 'hidden' : 'visible';
         }
         window.addEventListener('scroll', readScroll, { passive: true });
         readScroll();
