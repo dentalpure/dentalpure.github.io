@@ -19,7 +19,7 @@
         try { d.dataset.mode = localStorage.getItem('bws-mode') === 'general' ? 'general' : 'dental'; }
         catch (e) { d.dataset.mode = 'dental'; }
       })();
-    </script><link rel="stylesheet" href="/_astro/Base.cx91ILKv.css"></head> <body> <a class="skip" href="#main">本文へスキップ</a> <div class="journey" aria-hidden="true"></div> <canvas id="stars" aria-hidden="true"></canvas>  <header class="site-header"> <div class="wrap"> <a class="brand" href="/" aria-label="Bridge Works Studio"> <span class="brand-lock"> <span class="brand-row"> <span class="brand-wm">bws</span> <svg class="brand-arch" viewBox="0 0 100 100" aria-hidden="true"><path fill="var(--orange)" d="M8 96 V42 a42 42 0 0 1 84 0 V96 H68 V66 a18 18 0 0 0 -36 0 V96 Z"></path></svg> </span> <span class="brand-tag">Bridge&nbsp;Works&nbsp;Studio</span> </span> </a> <nav class="nav" aria-label="グローバルナビ"> <a class="navlink" href="#about">About</a> <a class="navlink" href="#works">Works</a> <a class="navlink" href="#service">Service</a> <a class="navlink" href="#design">Design</a> <a class="navlink" href="#news">News</a> <a class="navlink" href="#price">料金・流れ</a> <div class="mode-toggle" role="group" aria-label="表示モード切替"> <span class="mode-thumb" aria-hidden="true"></span> <button type="button" class="mode-btn" data-set-mode="general" aria-pressed="true">一般</button> <button type="button" class="mode-btn" data-set-mode="dental" aria-pressed="false">歯科</button> </div> <a class="hpill solid" href="/contact/">Contact</a> </nav> </div> </header> <div class="intro" id="intro" aria-hidden="true"> <div class="intro__stage"> <svg class="intro__gate" viewBox="0 0 200 130" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M8 130 V26 H192 V130 H150 V64 H50 V130 Z" fill="#fff"></path> </svg> <span class="intro__word"> <span class="iw-row"><span class="iw">bws</span><svg class="iw-arch" viewBox="0 0 100 100" aria-hidden="true"><path fill="#ff9417" d="M8 96 V42 a42 42 0 0 1 84 0 V96 H68 V66 a18 18 0 0 0 -36 0 V96 Z"></path></svg></span> <span class="iw-tag">Bridge&nbsp;Works&nbsp;Studio</span> </span> </div> <span class="intro__pct en">0</span> </div> <script>
+    </script><link rel="stylesheet" href="/_astro/Base.OCji1v_K.css"></head> <body> <a class="skip" href="#main">本文へスキップ</a> <div class="journey" aria-hidden="true"></div> <canvas id="stars" aria-hidden="true"></canvas>  <header class="site-header"> <div class="wrap"> <a class="brand" href="/" aria-label="Bridge Works Studio"> <span class="brand-lock"> <span class="brand-row"> <span class="brand-wm">bws</span> <svg class="brand-arch" viewBox="0 0 100 100" aria-hidden="true"><path fill="var(--orange)" d="M8 96 V42 a42 42 0 0 1 84 0 V96 H68 V66 a18 18 0 0 0 -36 0 V96 Z"></path></svg> </span> <span class="brand-tag">Bridge&nbsp;Works&nbsp;Studio</span> </span> </a> <nav class="nav" aria-label="グローバルナビ"> <a class="navlink" href="#about">About</a> <a class="navlink" href="#works">Works</a> <a class="navlink" href="#service">Service</a> <a class="navlink" href="#design">Design</a> <a class="navlink" href="#news">News</a> <a class="navlink" href="#price">料金・流れ</a> <div class="mode-toggle" role="group" aria-label="表示モード切替"> <span class="mode-thumb" aria-hidden="true"></span> <button type="button" class="mode-btn" data-set-mode="general" aria-pressed="true">一般</button> <button type="button" class="mode-btn" data-set-mode="dental" aria-pressed="false">歯科</button> </div> <a class="hpill solid" href="/contact/">Contact</a> </nav> </div> </header> <div class="intro" id="intro" aria-hidden="true"> <div class="intro__stage"> <svg class="intro__gate" viewBox="0 0 200 130" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M8 130 V26 H192 V130 H150 V64 H50 V130 Z" fill="#fff"></path> </svg> <span class="intro__word"> <span class="iw-row"><span class="iw">bws</span><svg class="iw-arch" viewBox="0 0 100 100" aria-hidden="true"><path fill="#ff9417" d="M8 96 V42 a42 42 0 0 1 84 0 V96 H68 V66 a18 18 0 0 0 -36 0 V96 Z"></path></svg></span> <span class="iw-tag">Bridge&nbsp;Works&nbsp;Studio</span> </span> </div> <span class="intro__pct en">0</span> </div> <script>
     (function () {
       var el = document.getElementById('intro'); if (!el) return;
       var pct = el.querySelector('.intro__pct');
@@ -65,6 +65,7 @@
     const aboutSec = document.getElementById('about');
     const designSec = document.getElementById('design');
     const blogSec = document.getElementById('blog');
+    const newsSec = document.getElementById('news');
     const svcSec = document.getElementById('service');
     const memSec = document.getElementById('members');
     const gwStage = document.querySelector('.gw-stage');
@@ -307,7 +308,13 @@
           // 表示アルファ: 助走が始まったらすぐ出現、街歩き（works）が抜けたら消える
           const enter = clamp(e * 6, 0, 1);
           const dr = wr;   // 街歩きシーン＝OUR WORKS（以降の dr はすべて街歩き基準）
-          const blr = blogSec ? blogSec.getBoundingClientRect() : dr;
+          /* 2026-08-13 夜空はNEWSまで続ける（山田指示）。
+             ⚠️ 過去事故: 退場をblogに固定していたところ、blogを {false && …} で非表示にした際に
+             フォールバックがworks（dr）となり、worksピン終了と同時に夜景が消えて
+             MEMBERSがクリーム背景＋淡色文字（読めない）になった。
+             非表示になり得るセクションを退場アンカーにしない。news→members→works の順で持つ */
+          const exitSec = newsSec || memSec || blogSec;
+          const blr = exitSec ? exitSec.getBoundingClientRect() : dr;
           const exit = clamp(1 - blr.bottom / (vh * 0.5), 0, 1);
           const target = Math.min(enter, 1 - exit);
           alpha += (target - alpha) * 0.08;
@@ -1123,7 +1130,9 @@
         // (strix changes scene colors navy→lavender→sky as you "fly" through)
         var stops = [
           ['.mv', '#5a4fa8'], ['#about', '#f1ede6'], ['#works', '#f7fafe'], ['#service', '#b4a9ea'],
-          ['#design', '#6e6e6e'], ['#blog', '#f2f1ed'], ['#news', '#f2f1ed'], ['#company', '#8fc8f7'], ['#members', '#f2f1ed'], ['#price', '#0a1130'], ['#contact', '#0e1a52']
+          /* 2026-08-13 山田指示: MEMBERS〜NEWSは夜空。3Dの夜景が退場したあとの受け皿も夜色にして
+             クリーム背景（#f2f1ed）に戻らないようにする（淡色文字が読めなくなるため） */
+          ['#design', '#6e6e6e'], ['#blog', '#0a1130'], ['#news', '#0a1130'], ['#company', '#8fc8f7'], ['#members', '#0a1130'], ['#price', '#0a1130'], ['#contact', '#0e1a52']
         ];
         stops.forEach(function (s) {
           var el = document.querySelector(s[0]); if (!el) return;
