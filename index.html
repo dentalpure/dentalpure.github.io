@@ -345,9 +345,14 @@
           // 降下: BUSINESS が近づく〜画面上部に来るまでで 0→1
           const d = smooth(clamp((vh * 1.7 - br.top) / (vh * 1.55), 0, 1));
           // 突入: 雲海の上→雲の中へ
-          const eS = smooth(e);
-          const cloudY = lerp(96, camA.y, eS);
-          const cloudTy = lerp(84, camA.ty, eS);
+          /* 2026-08-14 山田指示: ABOUT→雲シーンの繋ぎが急。
+             「目線を上向き→横向きに変えて、ちょっと下に降りて繋げる」イメージに合わせ、
+             目線の回転（tiltE・先行して0〜62%で完了）と高度の降下（dropE・25%から遅れて開始）の
+             位相をずらす。同時に動かすと視界が一気に流れて「急」に感じる */
+          const tiltE = smooth(clamp(e / 0.62, 0, 1));
+          const dropE = smooth(clamp((e - 0.25) / 0.75, 0, 1));
+          const cloudY = lerp(96, camA.y, dropE);
+          const cloudTy = lerp(84, camA.ty, tiltE);
           // 3Dトランジット雲: 遠くの左空から対角線上にゆっくり接近→包み込む
           const sweep = smooth(clamp((e - 0.07) / 0.63, 0, 1));
           transit.position.x = lerp(-155, 0, sweep) + Math.sin(t * 0.4) * 1.2;
