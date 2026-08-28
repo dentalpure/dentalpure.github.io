@@ -307,6 +307,7 @@
         };
 
         let alpha = 0;
+        let camSm = null;   // カメラ減衰の内部状態（2026-08-14 一瞬青空対策）
         const tick = (tms) => {
           const t = tms * 0.001;
           resize();
@@ -418,11 +419,24 @@
           const px = lerp(lerp(camA.x, camB.x, d) + swayX, camC.x + Math.sin(t * 0.3) * 0.7, g);
           const py = lerp(lerp(cloudY, camB.y, d) + bobY, camC.y + Math.sin(t * 0.8) * 0.18, g);
           const pz = lerp(lerp(camA.z, camB.z, d), streetZ, g);
-          camera.position.set(px, py + nightF * 26, pz);
+          /* 2026-08-14 カメラ減衰: GSAPピンの付け外しやレイアウト再計算の瞬間、セクションのrectが
+             1〜2フレームだけ狂い、d/gが飛んでカメラが雲まで戻る＝「一瞬青空が出る」（山田報告）。
+             目標位置へ毎フレーム22%ずつ寄せる減衰を挟むことで、瞬間値の暴れでは実質動かず、
+             通常のスクロール追従は約0.2秒遅れのまま維持される。canvas非表示からの復帰時はスナップ */
+          const tgt = { x: px, y: py + nightF * 26, z: pz };
           look.set(
             lerp(lerp(camA.tx, camB.tx, d), camC.tx, g),
             lerp(lerp(cloudTy, camB.ty, d), camC.ty, g) + nightF * 240,
             lerp(lerp(camA.tz, camB.tz, d), camC.tz + (streetZ - camC.z), g));
+          if (!camSm || alpha < 0.05) {
+            camSm = { p: { ...tgt }, l: { x: look.x, y: look.y, z: look.z } };
+          } else {
+            const K = 0.22;
+            camSm.p.x += (tgt.x - camSm.p.x) * K; camSm.p.y += (tgt.y - camSm.p.y) * K; camSm.p.z += (tgt.z - camSm.p.z) * K;
+            camSm.l.x += (look.x - camSm.l.x) * K; camSm.l.y += (look.y - camSm.l.y) * K; camSm.l.z += (look.z - camSm.l.z) * K;
+          }
+          camera.position.set(camSm.p.x, camSm.p.y, camSm.p.z);
+          look.set(camSm.l.x, camSm.l.y, camSm.l.z);
           camera.lookAt(look);
 
           // 雲: もこもこ（脈動）＋横ドリフト
