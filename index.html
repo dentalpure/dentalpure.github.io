@@ -352,7 +352,7 @@
             const hv = heroC && getComputedStyle(heroC).visibility === 'visible';
             const beforeMembers = memSec ? memSec.getBoundingClientRect().top > vh * 0.5 : true;
             let ev = null;
-            if (deep && hv) ev = 'ヒーローcanvasが可視';
+            if (deep && hv) ev = 'ヒーローcanvasが可視 hideY=' + (window.__heroHideY || '?');
             else if (deep && beforeMembers && alpha < 0.7) ev = 'city canvas透明化 a=' + alpha.toFixed(2);
             else if (flashPrev && (Math.abs(dRaw - flashPrev.d) > 0.3 || Math.abs(gRaw - flashPrev.g) > 0.3 || Math.abs(e - flashPrev.e) > 0.3))
               ev = '状態ジャンプ d:' + flashPrev.d.toFixed(2) + '→' + dRaw.toFixed(2) +
@@ -520,7 +520,7 @@
         if (new URLSearchParams(location.search).has('flashlog')) {
           flashEl = document.createElement('div');
           flashEl.style.cssText = 'position:fixed;top:84px;left:8px;z-index:99999;background:rgba(140,10,10,.93);color:#fff;font:11px/1.6 monospace;padding:8px 11px;border-radius:8px;pointer-events:none;max-width:80vw;white-space:pre-wrap;';
-          flashEl.textContent = 'flashlog: 監視中（異常が起きるとここに記録が残ります）';
+          flashEl.textContent = 'flashlog build v310: 監視中（異常が起きるとここに記録が残ります）\n※この行に v310 と無ければ古いキャッシュを見ています';
           document.body.appendChild(flashEl);
         }
         let dbgEl = null, dbgFrames = 0, dbgLastRender = -1, dbgErr = '';
@@ -909,13 +909,21 @@
            文書座標へ変換して覚える。scrollYの比較は原理的に狂わない */
         let heroHideY = Infinity;
         function calcHeroHideY() {
+          /* 健全性クランプ: 万一aboutの読み取りが壊れた瞬間に呼ばれても、
+             しきい値は「ヒーロー終端±」の構造的にあり得る範囲から出られない。
+             （範囲外の値になると深部でヒーローが再表示され青空が出るため） */
+          const mvEnd = section.offsetTop + section.offsetHeight;
+          let v = mvEnd + window.innerHeight;
           const a = document.getElementById('about');
-          if (a) { const r = a.getBoundingClientRect(); heroHideY = window.scrollY + r.bottom - window.innerHeight * 0.1; }
-          else { heroHideY = section.offsetTop + section.offsetHeight; }
+          if (a) { const r = a.getBoundingClientRect(); v = window.scrollY + r.bottom - window.innerHeight * 0.1; }
+          heroHideY = Math.min(Math.max(v, mvEnd - window.innerHeight), mvEnd + window.innerHeight * 3);
+          window.__heroHideY = Math.round(heroHideY);
         }
         calcHeroHideY();
         window.addEventListener('resize', calcHeroHideY);
         window.addEventListener('load', calcHeroHideY);
+        setTimeout(calcHeroHideY, 1200);   // フォント・画像で上部レイアウトが落ち着いた後に再計算
+        setTimeout(calcHeroHideY, 3500);
         function readScroll() {
           const rect = section.getBoundingClientRect();
           const total = section.offsetHeight - window.innerHeight;
