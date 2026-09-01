@@ -375,23 +375,11 @@
              抜けはimmと同じ 1-d*2.2 で降下に連動して滑らかに晴らす */
           const apprHold = smooth(clamp((e - 0.45) / 0.35, 0, 1)) * clamp(1 - d * 2.2, 0, 1);
           inside = Math.max(inside, inCloudHold, apprHold);
-          /* 2026-08-14 山田指示: SERVICE→OUR WORKSの隙間は「左から雲が来て包まれ、
-             グレーの霧に入り、抜けたら夕方の街」という意図した雲くぐりにする（むき出しの青空を見せない）。
-             wrapS＝包み込みの進行（works 2.8vh手前で開始→1.3vh手前で完了）、wrapOut＝街側への抜け。
-             遷移中はトランジット雲を俯瞰カメラ(camB, y35)の高さでもう一度左から横切らせる */
-          /* 2026-08-14改: 開始をworks手前の固定距離ではなく「SERVICEが画面から抜ける瞬間」に紐付ける。
-             works基準だと SERVICE終わり〜works の間隔が長い時に手前へ素の青空区間が残る（山田報告2回目）。
-             SERVICE下端が0.7vhを切ったら包み始め→-0.2vhで完了。抜け(wrapOut)はworks 0.9vh手前のまま */
-          const svR = svcSec ? svcSec.getBoundingClientRect() : { bottom: dr.top };
-          const wrapS = smooth(clamp((vh * 0.7 - svR.bottom) / (vh * 0.9), 0, 1));
-          const wrapOut = smooth(clamp((vh * 0.9 - dr.top) / (vh * 0.8), 0, 1));
-          const wrapF = Math.min(wrapS, 1 - wrapOut);
-          if (wrapS > 0.02 && wrapOut < 0.999) {
-            transit.position.x = lerp(-175, 34, wrapS) + Math.sin(t * 0.4) * 1.2;
-            transit.position.y = 40 + Math.sin(t * 0.55) * 1.4;
-            transit.position.z = 26;
-          }
-          inside = Math.max(inside, wrapF);
+          /* 2026-08-14最終: SERVICE→WORKSの隙間は「俯瞰の街を見せ続ける」（山田指示）。
+             一度は霧で包む案（雲くぐり）を実装したが、「街の描写を続けてほしい」により撤回。
+             wrapFは0固定＝この区間は素のcamB俯瞰ビュー。青空が出る場合はhero3dの蓋（事故#1）か
+             雲の通り道（#10）を疑う */
+          const wrapF = 0;
           // 完全に覆われた瞬間だけ世界を切替（スワップは雲の内側で見えない）
           /* 2026-08-12: トランジット雲の演出（sweep）だけに頼ると、環境によって
              「覆われた」判定が発火せず、雲・街の世界が最後まで非表示のまま素通りする事故が起きた
@@ -880,6 +868,7 @@
         ], false, 'catmullrom', 0.5);
 
         let progress = 0, target = 0;
+        let heroShowFrames = 99;   // 初期は表示（ヒーローから始まるため）
         function readScroll() {
           const rect = section.getBoundingClientRect();
           const total = section.offsetHeight - window.innerHeight;
@@ -891,7 +880,12 @@
              ABOUTまではこの空が背景を担うため残し、雲シーン（design）が近づいたら隠す */
           const dsec = document.getElementById('design');
           const dTop = dsec ? dsec.getBoundingClientRect().top : Infinity;
-          canvas.style.visibility = (rect.bottom <= 0 && dTop <= window.innerHeight * 0.9) ? 'hidden' : 'visible';
+          /* 2026-08-14: 隠すのは即時、出すのは「8フレーム連続で条件不成立」の時だけ（デバウンス）。
+             ピン付け外し等でrectが1〜2フレーム狂うと、この不透明キャンバスが一瞬復活して
+             「一瞬青空が出る」フラッシュになるため、瞬間値では再表示させない */
+          const wantHide = (rect.bottom <= 0 && dTop <= window.innerHeight * 0.9);
+          if (wantHide) { heroShowFrames = 0; canvas.style.visibility = 'hidden'; }
+          else { heroShowFrames++; if (heroShowFrames > 8) canvas.style.visibility = 'visible'; }
         }
         window.addEventListener('scroll', readScroll, { passive: true });
         readScroll();
