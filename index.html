@@ -902,6 +902,20 @@
 
         let progress = 0, target = 0;
         let heroShowFrames = 99;   // 初期は表示（ヒーローから始まるため）
+        /* 2026-09-01: 隠す判定を「毎フレームのrect評価」から「scrollY > 固定しきい値」に変更。
+           flashlogでの実測により、深部でrectが実測不能な理由で狂い、判定が長時間外れて
+           ヒーローの青空が居座る事象を確認（y=22313で連続可視化の記録）。
+           ABOUT終端はどのピンよりも文書の上にあり位置が安定なので、初期化時に一度だけ
+           文書座標へ変換して覚える。scrollYの比較は原理的に狂わない */
+        let heroHideY = Infinity;
+        function calcHeroHideY() {
+          const a = document.getElementById('about');
+          if (a) { const r = a.getBoundingClientRect(); heroHideY = window.scrollY + r.bottom - window.innerHeight * 0.1; }
+          else { heroHideY = section.offsetTop + section.offsetHeight; }
+        }
+        calcHeroHideY();
+        window.addEventListener('resize', calcHeroHideY);
+        window.addEventListener('load', calcHeroHideY);
         function readScroll() {
           const rect = section.getBoundingClientRect();
           const total = section.offsetHeight - window.innerHeight;
@@ -911,13 +925,8 @@
              ヒーローを過ぎても画面を覆い続け、後続のcity3dの雲・街を隠してしまう
              （GSAPの変形が効く環境でだけ偶然封じ込められていた）。
              ABOUTまではこの空が背景を担うため残し、雲シーン（design）が近づいたら隠す */
-          /* 2026-09-01: 隠す条件からピン内要素(#design)を排除。ピンの付け外し中はピン内要素のrectが
-             数フレーム狂い、条件が偽になって不透明キャンバスが一瞬復活していた（=一瞬の青空）。
-             .mv と #about はどちらも非ピンでrectが常に正確。「ヒーローとABOUTが画面から去ったら隠す」
-             に単純化する（ABOUTまではこの空が背景を担うため残す・従来の意図は維持） */
-          const aboutSec2 = document.getElementById('about');
-          const aR = aboutSec2 ? aboutSec2.getBoundingClientRect() : { bottom: -1 };
-          const wantHide = (rect.bottom <= 0 && aR.bottom <= window.innerHeight * 0.1);
+          /* scrollYとの単純比較（しきい値は初期化時に固定・上のcalcHeroHideY参照） */
+          const wantHide = window.scrollY > heroHideY;
           if (wantHide) { heroShowFrames = 0; canvas.style.visibility = 'hidden'; }
           else { heroShowFrames++; if (heroShowFrames > 8) canvas.style.visibility = 'visible'; }
         }
