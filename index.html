@@ -343,6 +343,26 @@
             'frames:' + dbgFrames + ' render:' + dbgLastRender + ' | e:' + e.toFixed(2) + ' | alpha:' + alpha.toFixed(2) +
             ' | covered:' + covered + ' world:' + worldGrp.visible + ' | crTop:' + Math.round(cr.top) + ' vh:' + vh +
             (dbgErr ? ' | ERR: ' + dbgErr : ''); }
+          /* flashlog: 早期returnの前に置く（canvas透明時も監視を続けるため） */
+          if (flashEl) {
+            const dRaw = smooth(clamp((vh * 1.7 - br.top) / (vh * 1.55), 0, 1));
+            const gRaw = smooth(clamp((vh * 1.1 - dr.top) / (vh * 1.35), 0, 1));
+            const heroC = document.getElementById('hero3d');
+            const deep = ar.bottom < -vh;
+            const hv = heroC && getComputedStyle(heroC).visibility === 'visible';
+            const beforeMembers = memSec ? memSec.getBoundingClientRect().top > vh * 0.5 : true;
+            let ev = null;
+            if (deep && hv) ev = 'ヒーローcanvasが可視';
+            else if (deep && beforeMembers && alpha < 0.7) ev = 'city canvas透明化 a=' + alpha.toFixed(2);
+            else if (flashPrev && (Math.abs(dRaw - flashPrev.d) > 0.3 || Math.abs(gRaw - flashPrev.g) > 0.3 || Math.abs(e - flashPrev.e) > 0.3))
+              ev = '状態ジャンプ d:' + flashPrev.d.toFixed(2) + '→' + dRaw.toFixed(2) +
+                   ' g:' + flashPrev.g.toFixed(2) + '→' + gRaw.toFixed(2) +
+                   ' e:' + flashPrev.e.toFixed(2) + '→' + e.toFixed(2);
+            if (ev) { flashLog.push(new Date().toTimeString().slice(0, 8) + ' y=' + Math.round(scrollY) + ' ' + ev);
+              if (flashLog.length > 6) flashLog.shift();
+              flashEl.textContent = 'flashlog（異常記録）:\n' + flashLog.join('\n'); }
+            flashPrev = { d: dRaw, g: gRaw, e };
+          }
           if (alpha < 0.005) { requestAnimationFrame(safeTick); return; }
 
           // 降下: BUSINESS が近づく〜画面上部に来るまでで 0→1
@@ -489,6 +509,17 @@
           catch (err) { console.warn('city3d frame skipped:', err); dbgErr = String(err).slice(0, 120); requestAnimationFrame(safeTick); }
         };
         canvas.addEventListener('webglcontextlost', (ev) => { ev.preventDefault(); }, false);
+        /* flashlog（2026-09-01）: ?flashlog で起動する異常検知レコーダー。
+           「一瞬青空が出る」の現場を捕まえるため、フレーム毎に
+           ①ヒーローcanvasが深部で可視 ②city canvasの透明化 ③状態量(d/g/e)のジャンプ を監視し、
+           起きた瞬間の記録を画面の赤パネルに残す（スクショで報告してもらう）。原因特定後に削除 */
+        let flashEl = null, flashPrev = null; const flashLog = [];
+        if (new URLSearchParams(location.search).has('flashlog')) {
+          flashEl = document.createElement('div');
+          flashEl.style.cssText = 'position:fixed;top:84px;left:8px;z-index:99999;background:rgba(140,10,10,.93);color:#fff;font:11px/1.6 monospace;padding:8px 11px;border-radius:8px;pointer-events:none;max-width:80vw;white-space:pre-wrap;';
+          flashEl.textContent = 'flashlog: 監視中（異常が起きるとここに記録が残ります）';
+          document.body.appendChild(flashEl);
+        }
         let dbgEl = null, dbgFrames = 0, dbgLastRender = -1, dbgErr = '';
         if (new URLSearchParams(location.search).has('debug')) {
           dbgEl = document.createElement('div');
