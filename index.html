@@ -78,6 +78,7 @@
     const canvas = document.getElementById('city3d');
     const worksSec = document.getElementById('works');
     const aboutSec = document.getElementById('about');
+    const svcSec = document.getElementById('service');
     const designSec = document.getElementById('design');
     const blogSec = document.getElementById('blog');
     const newsSec = document.getElementById('news');
@@ -356,8 +357,11 @@
           const dropE = smooth(clamp((e - 0.25) / 0.75, 0, 1));
           const cloudY = lerp(96, camA.y, dropE);
           const cloudTy = lerp(84, camA.ty, tiltE);
-          // 3Dトランジット雲: 遠くの左空から対角線上にゆっくり接近→包み込む
-          const sweep = smooth(clamp((e - 0.07) / 0.63, 0, 1));
+          // 3Dトランジット雲: 遠くの左空から対角線上に接近→包み込む
+          /* 2026-08-14 山田指示（ABOUT→What We Design）: 「左から雲が来て、画面が雲の中に入って
+             グレーがかる」を接近の主役にする。従来は雲の到着がe=0.70と遅く、素の青空区間が
+             長かった。到着をe=0.55に前倒しし、下のapprHoldで包まれのグレー化も先行させる */
+          const sweep = smooth(clamp((e - 0.05) / 0.5, 0, 1));
           transit.position.x = lerp(-155, 0, sweep) + Math.sin(t * 0.4) * 1.2;
           transit.position.z = lerp(-90, 42, sweep);               // 一定速度でまっすぐ近づく
           transit.position.y = lerp(86, 76, sweep) + Math.sin(t * 0.55) * 1.4;
@@ -367,12 +371,19 @@
           /* 2026-08-12 山田仕様: What We Design＝立体的な雲の中（グレーの霧）。
              トランジット雲との距離計算に頼らず、designピン中〜降下前は雲内部の霧を保証する */
           const inCloudHold = (cr.top <= 2 && d < 0.45) ? 1 : 0;
-          inside = Math.max(inside, inCloudHold);
+          /* apprHold: 接近の後半(e0.45〜0.8)で必ずグレーに包まれる保証（距離計算のブレに依存しない）。
+             抜けはimmと同じ 1-d*2.2 で降下に連動して滑らかに晴らす */
+          const apprHold = smooth(clamp((e - 0.45) / 0.35, 0, 1)) * clamp(1 - d * 2.2, 0, 1);
+          inside = Math.max(inside, inCloudHold, apprHold);
           /* 2026-08-14 山田指示: SERVICE→OUR WORKSの隙間は「左から雲が来て包まれ、
              グレーの霧に入り、抜けたら夕方の街」という意図した雲くぐりにする（むき出しの青空を見せない）。
              wrapS＝包み込みの進行（works 2.8vh手前で開始→1.3vh手前で完了）、wrapOut＝街側への抜け。
              遷移中はトランジット雲を俯瞰カメラ(camB, y35)の高さでもう一度左から横切らせる */
-          const wrapS = smooth(clamp((vh * 2.8 - dr.top) / (vh * 1.5), 0, 1));
+          /* 2026-08-14改: 開始をworks手前の固定距離ではなく「SERVICEが画面から抜ける瞬間」に紐付ける。
+             works基準だと SERVICE終わり〜works の間隔が長い時に手前へ素の青空区間が残る（山田報告2回目）。
+             SERVICE下端が0.7vhを切ったら包み始め→-0.2vhで完了。抜け(wrapOut)はworks 0.9vh手前のまま */
+          const svR = svcSec ? svcSec.getBoundingClientRect() : { bottom: dr.top };
+          const wrapS = smooth(clamp((vh * 0.7 - svR.bottom) / (vh * 0.9), 0, 1));
           const wrapOut = smooth(clamp((vh * 0.9 - dr.top) / (vh * 0.8), 0, 1));
           const wrapF = Math.min(wrapS, 1 - wrapOut);
           if (wrapS > 0.02 && wrapOut < 0.999) {
