@@ -919,6 +919,12 @@
         let clock = 0;
 
         function frame() {
+          try {
+          /* 2026-08-14: visibility制御をスクロールイベント頼みからフレーム毎評価に変更。
+             イベント取りこぼしや一時的なrect異常で 'visible' のまま固まると、
+             この不透明キャンバスの青空が後続のcity3d全景を覆う（docs事故#1の再発・山田報告3回）。
+             毎フレーム評価なら1フレームで自己修復する */
+          readScroll();
           progress += (target - progress) * 0.06;
           clock += 0.008;
           const ip = Math.min((performance.now() - introStart) / INTRO_MS, 1);
@@ -979,6 +985,12 @@
           }
 
           renderer.render(scene, camera);
+          } catch (err) {
+            /* 例外でループを殺さない（city3dのsafeTickと同じ思想）。
+               ヒーローを過ぎた位置で死んだ場合は、覆い隠し事故を防ぐため必ず隠す */
+            console.warn('hero3d frame skipped:', err);
+            try { if (section.getBoundingClientRect().bottom <= 0) canvas.style.visibility = 'hidden'; } catch (e2) {}
+          }
           requestAnimationFrame(frame);
         }
         requestAnimationFrame(frame);
