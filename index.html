@@ -366,7 +366,10 @@
           if (alpha < 0.005) { requestAnimationFrame(safeTick); return; }
 
           // 降下: BUSINESS が近づく〜画面上部に来るまでで 0→1
-          const d = smooth(clamp((vh * 1.7 - br.top) / (vh * 1.55), 0, 1));
+          /* 2026-09-01 山田指示「雲の中から下にいく動きをもっとゆっくり。携帯だと急」:
+             開始を早めて助走距離を1.4倍（携帯は1.6倍）に。完了位置（BUSINESSピン直前）は従来と同じ */
+          const dStart = mob ? 2.6 : 2.1, dSpan = mob ? 2.45 : 1.9;
+          const d = smooth(clamp((vh * dStart - br.top) / (vh * dSpan), 0, 1));
           // 突入: 雲海の上→雲の中へ
           /* 2026-08-14 山田指示: ABOUT→雲シーンの繋ぎが急。
              「目線を上向き→横向きに変えて、ちょっと下に降りて繋げる」イメージに合わせ、
