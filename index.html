@@ -360,7 +360,7 @@
                    ' e:' + flashPrev.e.toFixed(2) + '→' + e.toFixed(2);
             if (ev) { flashLog.push(new Date().toTimeString().slice(0, 8) + ' y=' + Math.round(scrollY) + ' ' + ev);
               if (flashLog.length > 6) flashLog.shift();
-              flashEl.textContent = 'flashlog（異常記録）:\n' + flashLog.join('\n'); }
+              flashEl.textContent = 'flashlog build v320（異常記録）:\n' + flashLog.join('\n'); }
             flashPrev = { d: dRaw, g: gRaw, e };
           }
           if (alpha < 0.005) { requestAnimationFrame(safeTick); return; }
@@ -410,6 +410,14 @@
           /* 2026-08-12: ラッチ式に変更。境界近傍でsweepが揺れると世界が点滅／消失する事故があったため、
              一度覆われたら旅程中は表示を維持する（退場はexitのalphaフェードが担う） */
           if (shouldCover && !covered) { covered = true; worldGrp.visible = true; }
+          /* 2026-09-01 最終防壁: 旅程中（世界表示済み＆雲シーン以降）はヒーローcanvasを
+             毎フレーム強制的に隠す。ヒーローモジュール側の判定が何らかの理由で壊れても、
+             このループ（画面に街が出ている＝確実に生きている）が上書きするので青空は出られない。
+             スクロールで先頭付近へ戻れば cr.top が上がり enforcement は自然に止まる */
+          if (covered && cr.top <= vh * 0.5) {
+            const hc = document.getElementById('hero3d');
+            if (hc && hc.style.visibility !== 'hidden') hc.style.visibility = 'hidden';
+          }
           // WORKSの文字・カードは、画面が固定（ピン）されてから"その場で"ふわっと出現
           if (gwStage) {
             const rv = smooth(clamp((-wr.top) / (vh * 0.16), 0, 1));   // ピン開始後の最初の16vhでフェード
@@ -520,7 +528,7 @@
         if (new URLSearchParams(location.search).has('flashlog')) {
           flashEl = document.createElement('div');
           flashEl.style.cssText = 'position:fixed;top:84px;left:8px;z-index:99999;background:rgba(140,10,10,.93);color:#fff;font:11px/1.6 monospace;padding:8px 11px;border-radius:8px;pointer-events:none;max-width:80vw;white-space:pre-wrap;';
-          flashEl.textContent = 'flashlog build v310: 監視中（異常が起きるとここに記録が残ります）\n※この行に v310 と無ければ古いキャッシュを見ています';
+          flashEl.textContent = 'flashlog build v320: 監視中（異常が起きるとここに記録が残ります）\n※この行に v320 と無ければ古いキャッシュを見ています';
           document.body.appendChild(flashEl);
         }
         let dbgEl = null, dbgFrames = 0, dbgLastRender = -1, dbgErr = '';
