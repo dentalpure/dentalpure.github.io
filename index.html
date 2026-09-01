@@ -352,7 +352,8 @@
             const hv = heroC && getComputedStyle(heroC).visibility === 'visible';
             const beforeMembers = memSec ? memSec.getBoundingClientRect().top > vh * 0.5 : true;
             let ev = null;
-            if (deep && hv) ev = 'ヒーローcanvasが可視 hideY=' + (window.__heroHideY || '?');
+            if (deep && hv) ev = 'ヒーローcanvasが可視 hideY=' + (window.__heroHideY || '?') +
+              ' heroLoop=' + (window.__heroAlive && (performance.now() - window.__heroAlive) < 500 ? '生存' : '死亡');
             else if (deep && beforeMembers && alpha < 0.7) ev = 'city canvas透明化 a=' + alpha.toFixed(2);
             else if (flashPrev && (Math.abs(dRaw - flashPrev.d) > 0.3 || Math.abs(gRaw - flashPrev.g) > 0.3 || Math.abs(e - flashPrev.e) > 0.3))
               ev = '状態ジャンプ d:' + flashPrev.d.toFixed(2) + '→' + dRaw.toFixed(2) +
@@ -360,7 +361,7 @@
                    ' e:' + flashPrev.e.toFixed(2) + '→' + e.toFixed(2);
             if (ev) { flashLog.push(new Date().toTimeString().slice(0, 8) + ' y=' + Math.round(scrollY) + ' ' + ev);
               if (flashLog.length > 6) flashLog.shift();
-              flashEl.textContent = 'flashlog build v320（異常記録）:\n' + flashLog.join('\n'); }
+              flashEl.textContent = 'flashlog build v330（異常記録）:\n' + flashLog.join('\n'); }
             flashPrev = { d: dRaw, g: gRaw, e };
           }
           if (alpha < 0.005) { requestAnimationFrame(safeTick); return; }
@@ -528,7 +529,7 @@
         if (new URLSearchParams(location.search).has('flashlog')) {
           flashEl = document.createElement('div');
           flashEl.style.cssText = 'position:fixed;top:84px;left:8px;z-index:99999;background:rgba(140,10,10,.93);color:#fff;font:11px/1.6 monospace;padding:8px 11px;border-radius:8px;pointer-events:none;max-width:80vw;white-space:pre-wrap;';
-          flashEl.textContent = 'flashlog build v320: 監視中（異常が起きるとここに記録が残ります）\n※この行に v320 と無ければ古いキャッシュを見ています';
+          flashEl.textContent = 'flashlog build v330: 監視中（異常が起きるとここに記録が残ります）\n※この行に v330 と無ければ古いキャッシュを見ています';
           document.body.appendChild(flashEl);
         }
         let dbgEl = null, dbgFrames = 0, dbgLastRender = -1, dbgErr = '';
@@ -972,6 +973,7 @@
         let clock = 0;
 
         function frame() {
+          window.__heroAlive = performance.now();   // 生存心拍（flashlogが死活を判定する）
           try {
           /* 2026-08-14: visibility制御をスクロールイベント頼みからフレーム毎評価に変更。
              イベント取りこぼしや一時的なrect異常で 'visible' のまま固まると、
