@@ -877,12 +877,13 @@
              ヒーローを過ぎても画面を覆い続け、後続のcity3dの雲・街を隠してしまう
              （GSAPの変形が効く環境でだけ偶然封じ込められていた）。
              ABOUTまではこの空が背景を担うため残し、雲シーン（design）が近づいたら隠す */
-          const dsec = document.getElementById('design');
-          const dTop = dsec ? dsec.getBoundingClientRect().top : Infinity;
-          /* 2026-08-14: 隠すのは即時、出すのは「8フレーム連続で条件不成立」の時だけ（デバウンス）。
-             ピン付け外し等でrectが1〜2フレーム狂うと、この不透明キャンバスが一瞬復活して
-             「一瞬青空が出る」フラッシュになるため、瞬間値では再表示させない */
-          const wantHide = (rect.bottom <= 0 && dTop <= window.innerHeight * 0.9);
+          /* 2026-09-01: 隠す条件からピン内要素(#design)を排除。ピンの付け外し中はピン内要素のrectが
+             数フレーム狂い、条件が偽になって不透明キャンバスが一瞬復活していた（=一瞬の青空）。
+             .mv と #about はどちらも非ピンでrectが常に正確。「ヒーローとABOUTが画面から去ったら隠す」
+             に単純化する（ABOUTまではこの空が背景を担うため残す・従来の意図は維持） */
+          const aboutSec2 = document.getElementById('about');
+          const aR = aboutSec2 ? aboutSec2.getBoundingClientRect() : { bottom: -1 };
+          const wantHide = (rect.bottom <= 0 && aR.bottom <= window.innerHeight * 0.1);
           if (wantHide) { heroShowFrames = 0; canvas.style.visibility = 'hidden'; }
           else { heroShowFrames++; if (heroShowFrames > 8) canvas.style.visibility = 'visible'; }
         }
