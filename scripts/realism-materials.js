@@ -145,7 +145,8 @@ export function createCloudPuffs(THREE) {
       const radius = lobe.radius + noise;
       const distance = Math.sqrt(dx * dx + dy * dy);
       if (distance >= radius) continue;
-      opacity = Math.max(opacity, Math.min(1, (radius - distance) / 0.025));
+      // 2026-09-06: 輪郭ランプを0.025→0.05に拡幅（至近距離での硬いフチを緩和）
+      opacity = Math.max(opacity, Math.min(1, (radius - distance) / 0.05));
       const depth = Math.sqrt(radius * radius - distance * distance);
       if (depth + lobe.z > front) {
         front = depth + lobe.z;
@@ -162,7 +163,21 @@ export function createCloudPuffs(THREE) {
     pixels.data[i + 3] = opacity * 242;
   }
   ctx.putImageData(pixels, 0, 0);
-  const map = texture(THREE, canvas);
+  // 2026-09-06: 雲くぐり等の至近距離でローブの継ぎ目・輪郭の階段が見えるため、
+  // 半分に縮小→2倍に拡大（バイリニア補間）＋軽いブラーでスムージングしてからテクスチャ化する。
+  // 生成は一度きりなので実行時コストは変わらない
+  const half = document.createElement('canvas');
+  half.width = W / 2; half.height = H / 2;
+  const halfCtx = half.getContext('2d');
+  halfCtx.imageSmoothingEnabled = true; halfCtx.imageSmoothingQuality = 'high';
+  halfCtx.drawImage(canvas, 0, 0, W / 2, H / 2);
+  const smooth = document.createElement('canvas');
+  smooth.width = W * 2; smooth.height = H * 2;
+  const smoothCtx = smooth.getContext('2d');
+  smoothCtx.imageSmoothingEnabled = true; smoothCtx.imageSmoothingQuality = 'high';
+  if ('filter' in smoothCtx) smoothCtx.filter = 'blur(2px)';
+  smoothCtx.drawImage(half, 0, 0, W * 2, H * 2);
+  const map = texture(THREE, smooth);
   map.wrapS = map.wrapT = THREE.ClampToEdgeWrapping;
   const material = new THREE.SpriteMaterial({ map, color: 0xffffff, transparent: true, depthWrite: false, fog: true });
   return { material, make: () => new THREE.Sprite(material) };
