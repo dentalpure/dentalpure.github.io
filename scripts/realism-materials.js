@@ -122,9 +122,11 @@ export function scaleFacadeUV(geometry, width, height, depth) {
 }
 
 // Soft billboard clusters retain the existing cloud paths while avoiding faceted balls.
+// 2026-09-06: 256x192では拡大表示で粗さが見えたため512x384に（生成は一度きりなので実行時コスト増なし）
 export function createCloudPuffs(THREE) {
+  const W = 512, H = 384;
   const canvas = document.createElement('canvas');
-  canvas.width = 256; canvas.height = 192;
+  canvas.width = W; canvas.height = H;
   const ctx = canvas.getContext('2d');
   const rnd = random(357);
   const lobes = Array.from({ length: 18 }, (_, i) => ({
@@ -133,9 +135,9 @@ export function createCloudPuffs(THREE) {
     z: rnd() * 0.2,
     radius: i < 5 ? 0.3 + rnd() * 0.09 : 0.12 + rnd() * 0.19,
   }));
-  const pixels = ctx.createImageData(256, 192);
-  for (let py = 0; py < 192; py++) for (let px = 0; px < 256; px++) {
-    const x = (px / 256 - 0.5) * 2.1, y = (0.5 - py / 192) * 1.4;
+  const pixels = ctx.createImageData(W, H);
+  for (let py = 0; py < H; py++) for (let px = 0; px < W; px++) {
+    const x = (px / W - 0.5) * 2.1, y = (0.5 - py / H) * 1.4;
     const noise = Math.sin(x * 73 + Math.sin(y * 31)) * Math.sin(y * 67 + x * 17) * 0.004;
     let front = -10, luminance = 0, opacity = 0;
     for (const lobe of lobes) {
@@ -153,7 +155,7 @@ export function createCloudPuffs(THREE) {
       }
     }
     if (!opacity) continue;
-    const i = (py * 256 + px) * 4;
+    const i = (py * W + px) * 4;
     pixels.data[i] = luminance;
     pixels.data[i + 1] = luminance + 3;
     pixels.data[i + 2] = luminance + 5;
