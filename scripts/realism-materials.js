@@ -139,23 +139,26 @@ export function createCloudPuffs(THREE) {
   for (let py = 0; py < H; py++) for (let px = 0; px < W; px++) {
     const x = (px / W - 0.5) * 2.1, y = (0.5 - py / H) * 1.4;
     const noise = Math.sin(x * 73 + Math.sin(y * 31)) * Math.sin(y * 67 + x * 17) * 0.004;
-    let front = -10, luminance = 0, opacity = 0;
+    /* 2026-09-06: 「一番手前のこぶの色で塗る」勝者総取り方式だと、こぶの境界で明るさが
+       急に切り替わって縞（継ぎ目の線）が見える（山田指摘）。奥行きの重み付き平均
+       （ソフトマックス）で混ぜ、手前優位のまま境界だけ滑らかにする */
+    let opacity = 0, weightSum = 0, luminanceSum = 0;
     for (const lobe of lobes) {
       const dx = x - lobe.x, dy = y - lobe.y;
       const radius = lobe.radius + noise;
       const distance = Math.sqrt(dx * dx + dy * dy);
       if (distance >= radius) continue;
-      // 2026-09-06: 輪郭ランプ 0.025→0.05→0.032（0.05は空との境目がボケすぎと山田指摘。階段が出ない最小幅に）
+      // 輪郭ランプ 0.025→0.05→0.032（0.05は空との境目がボケすぎと山田指摘。階段が出ない最小幅に）
       opacity = Math.max(opacity, Math.min(1, (radius - distance) / 0.032));
       const depth = Math.sqrt(radius * radius - distance * distance);
-      if (depth + lobe.z > front) {
-        front = depth + lobe.z;
-        // Sunlight from upper left with a broad ambient fill and shaded underside.
-        const diffuse = Math.max(0, (-dx * 0.42 + dy * 0.73 + depth * 0.53) / radius);
-        luminance = 179 + diffuse * 65 + Math.max(-10, y * 21);
-      }
+      // Sunlight from upper left with a broad ambient fill and shaded underside.
+      const diffuse = Math.max(0, (-dx * 0.42 + dy * 0.73 + depth * 0.53) / radius);
+      const weight = Math.exp((depth + lobe.z) * 12);
+      luminanceSum += (179 + diffuse * 65 + Math.max(-10, y * 21)) * weight;
+      weightSum += weight;
     }
     if (!opacity) continue;
+    const luminance = luminanceSum / weightSum;
     const i = (py * W + px) * 4;
     pixels.data[i] = luminance;
     pixels.data[i + 1] = luminance + 3;
