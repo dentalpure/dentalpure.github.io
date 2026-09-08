@@ -145,8 +145,8 @@ export function createCloudPuffs(THREE) {
       const radius = lobe.radius + noise;
       const distance = Math.sqrt(dx * dx + dy * dy);
       if (distance >= radius) continue;
-      // 2026-09-06: 輪郭ランプを0.025→0.05に拡幅（至近距離での硬いフチを緩和）
-      opacity = Math.max(opacity, Math.min(1, (radius - distance) / 0.05));
+      // 2026-09-06: 輪郭ランプ 0.025→0.05→0.032（0.05は空との境目がボケすぎと山田指摘。階段が出ない最小幅に）
+      opacity = Math.max(opacity, Math.min(1, (radius - distance) / 0.032));
       const depth = Math.sqrt(radius * radius - distance * distance);
       if (depth + lobe.z > front) {
         front = depth + lobe.z;
@@ -175,7 +175,8 @@ export function createCloudPuffs(THREE) {
   smooth.width = W * 2; smooth.height = H * 2;
   const smoothCtx = smooth.getContext('2d');
   smoothCtx.imageSmoothingEnabled = true; smoothCtx.imageSmoothingQuality = 'high';
-  if ('filter' in smoothCtx) smoothCtx.filter = 'blur(2px)';
+  /* blur 2px→1px（境目のシャープさ優先。階段消しは縮小拡大の補間が主役なので1pxで足りる） */
+  if ('filter' in smoothCtx) smoothCtx.filter = 'blur(1px)';
   smoothCtx.drawImage(half, 0, 0, W * 2, H * 2);
   const map = texture(THREE, smooth);
   map.wrapS = map.wrapT = THREE.ClampToEdgeWrapping;
