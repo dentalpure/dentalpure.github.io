@@ -171,17 +171,32 @@
         if (inner.length) tl.to(inner, { scale: 1, duration: reduce ? 0 : 1.7, ease: 'expo.out' }, '<');
       });
 
-      /* ===== 青リボン: スクロールで線が描かれる ===== */
+      /* ===== 青リボン: スクロールで線が描かれ、そのままセクションを越えて旅する
+             （lusion実物の観察: スクロール位置によってリボンが上へ移動していく） ===== */
       ['rb1', 'rb2'].forEach(function (id) {
         var path = document.getElementById(id);
         if (!path) return;
         var len = path.getTotalLength();
         path.style.strokeDasharray = len;
         path.style.strokeDashoffset = len;
+        var sec = path.closest('.sec');
         gsap.to(path, {
           strokeDashoffset: 0, ease: 'none',
-          scrollTrigger: { trigger: path.closest('.sec'), start: 'top 85%', end: 'bottom 45%', scrub: reduce ? false : 0.6 },
+          scrollTrigger: { trigger: sec, start: 'top 85%', end: 'bottom 45%', scrub: reduce ? false : 0.6 },
         });
+        if (!reduce) {
+          gsap.fromTo(path.closest('.ribbon'),
+            { yPercent: 16, rotation: -6 },
+            { yPercent: -46, rotation: 5, ease: 'none', transformOrigin: '50% 50%',
+              scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: 0.4 } });
+        }
       });
+
+      /* ===== リール内の映像がゆっくり漂う（lusionのコラージュのドリフト感） ===== */
+      if (!reduce && reelVideo) {
+        gsap.set(reelVideo, { scale: 1.1 });
+        gsap.to(reelVideo, { xPercent: 2.2, yPercent: -1.6, duration: 9, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+        gsap.to(reelVideo, { scale: 1.16, duration: 13, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+      }
     })();
   </script> </body> </html>
