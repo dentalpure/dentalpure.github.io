@@ -453,8 +453,8 @@
         /* 成長しきる手前からPLAY REELラベルをフェードイン（lusionのリールパネルの型） */
         if (duoLabel) duoLabel.style.opacity = Math.max(0, (sc - 0.72) / 0.28);
         t += 0.045;
-        /* 40%→112%（パディングを越えてほぼ全画面）まで育つ */
-        const target = 0.4 + 0.72 * prog;
+        /* 40%→100%。最大は余白を残した幅いっぱい（lusionのリール同等・2026-09-15 山田指示） */
+        const target = 0.4 + 0.6 * prog;
         sc += (target - sc) * 0.085;
         const v = window.scrollY - lastY; lastY = window.scrollY;
         vel += (v - vel) * 0.1;
