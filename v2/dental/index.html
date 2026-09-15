@@ -440,7 +440,15 @@
           const maxY = Math.max(1, zr.height - cardH);
           const py = Math.min(Math.max(targetTop - zr.top, 0), maxY);
           card.style.transform = 'translateY(' + py + 'px)';
-          prog = Math.min(Math.max(py / maxY, 0), 1);
+          /* 2026-09-15 山田指示: 近づく間の「徐々に大きくなる」は維持——
+             接近フェーズ(画面に入る→中央到達)で0→0.35、ピン中の走行で0.35→1.0 */
+          const A = 0.35;
+          if (py <= 0) {
+            const app = (innerHeight - zr.top) / Math.max(1, innerHeight - targetTop);
+            prog = A * Math.min(Math.max(app, 0), 1);
+          } else {
+            prog = A + (1 - A) * Math.min(py / maxY, 1);
+          }
         }
         /* 成長しきる手前からPLAY REELラベルをフェードイン（lusionのリールパネルの型） */
         if (duoLabel) duoLabel.style.opacity = Math.max(0, (sc - 0.72) / 0.28);
