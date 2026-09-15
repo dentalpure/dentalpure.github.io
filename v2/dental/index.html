@@ -418,7 +418,7 @@
         base = geo.attributes.position.array.slice();
         mat.uniforms.uSize.value.set(W, H);
         /* 最大サイズ: 画面内に収まる高さまで（lusionのリール同様、上下に余白が残る） */
-        scMax = Math.min(1, (innerHeight * 0.74) / H);
+        scMax = Math.min(1, (innerHeight * 0.84) / H); /* 2026-09-15 山田指示: もう少しだけ大きく */
         mesh = new THREE.Mesh(geo, mat);
         scene.add(mesh);
       }
