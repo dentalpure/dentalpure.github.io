@@ -347,8 +347,9 @@
         if (reduce) { return; } /* 動きなし＝パスをそのまま見せる */
         path.style.strokeDasharray = len + ' ' + (len + 10);
         path.style.strokeDashoffset = len;
+        /* 2026-09-15 山田指示: 上へスクロールで戻ったら、線も描いた道を逆に戻って消える */
         gsap.to(path, { strokeDashoffset: 0, duration: id === 'rb1' ? 1.8 : 2.1, ease: 'power2.inOut',
-          scrollTrigger: { trigger: sec, start: 'top 74%' } });
+          scrollTrigger: { trigger: sec, start: 'top 74%', toggleActions: 'play none none reverse' } });
       });
 
     })();
