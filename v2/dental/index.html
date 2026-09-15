@@ -493,11 +493,10 @@
         const curve = grow * 34;
         const pos = geo.attributes.position;
         const hw = W / 2, hh = H / 2;
-        /* lusion同様、小さい状態では左上に寄せ、成長しながらセンターへ広がる
-           （2026-09-15 山田指示: 四角の場所。上端アンカーで下に縦の空白ができないように） */
-        /* 小さいうちは左上アンカー、育つにつれて中央へ寄せる（最大時=中央） */
+        /* 2026-09-15 山田指示: 育ち始める場所はlusion実物に合わせる＝
+           小カードは画面中央の高さ・左で待機し、その場から育つ（縦は常にセンターアンカー） */
         const shiftX = -Math.max(0, 1 - sc) * hw * (1 - pr);
-        const shiftY = Math.max(0, 1 - sc) * hh * (1 - pr);
+        const shiftY = 0;
         for (let i = 0; i < pos.count; i++) {
           const bx = base[i * 3] / hw, by = base[i * 3 + 1] / hh;
           let x = base[i * 3] * sc + shiftX, y = base[i * 3 + 1] * sc + shiftY;
