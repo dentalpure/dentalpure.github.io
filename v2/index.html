@@ -430,13 +430,21 @@
         function memPause(ms) { memHold = performance.now() + ms; }
         if (mp) mp.addEventListener('click', function () { memPause(2500); memRow.scrollBy({ left: -memStep(), behavior: 'smooth' }); });
         if (mn) mn.addEventListener('click', function () { memPause(2500); memRow.scrollBy({ left: memStep(), behavior: 'smooth' }); });
-        /* 2026-09-19 山田指示: 右へループしながら自動スライド（カードは2周ぶん。半分を越えたら巻き戻す） */
+        /* 2026-09-19 山田指示: 右へループしながら自動スライド（カードは2周ぶん。半分を越えたら巻き戻す）。
+           先頭は山田。セクションが見えるまでは動かさず、見えてから4.5秒は先頭で静止させる */
         ['pointerdown', 'touchstart', 'wheel'].forEach(function (ev) {
           memRow.addEventListener(ev, function () { memPause(3000); }, { passive: true });
         });
         memRow.addEventListener('pointerenter', function () { memPause(1500); });
+        var memSeen = false;
         if (!reduce) (function memLoop() {
           requestAnimationFrame(memLoop);
+          if (!memSeen) {
+            /* IntersectionObserverは環境によって発火が遅れるため、rAF内の座標判定で見えた瞬間を取る */
+            var vr = memRow.getBoundingClientRect();
+            if (vr.top < innerHeight * 0.78 && vr.bottom > 0) { memSeen = true; memPause(4500); }
+            return;
+          }
           var half = (memRow.scrollWidth) / 2;
           if (half < 10) return;
           if (performance.now() > memHold) memRow.scrollLeft += 0.6;
