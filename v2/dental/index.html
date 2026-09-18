@@ -339,11 +339,17 @@
       /* ===== ヘッダー: スクロールでアクティブ以外のタブが消える（losyorkの挙動） ===== */
       var hd2 = document.getElementById('hd2');
       var fdiag = document.getElementById('fdiag');
+      var fdLast = window.scrollY;
       addEventListener('scroll', function () {
         hd2.classList.toggle('is-scrolled', window.scrollY > 90);
-        /* 追従の無料診断ボックスは1画面ぶんスクロールしたら出す（2026-09-19） */
+        /* 2026-09-19 山田指示: 無料診断の追従も犬と同じ「上スクロールで登場」に */
         if (fdiag) {
-          var on = window.scrollY > innerHeight * 0.7;
+          var y = window.scrollY, d = y - fdLast;
+          fdLast = y;
+          var on = fdiag.classList.contains('is-in');
+          if (y < 60) on = false;
+          else if (d < -6) on = true;
+          else if (d > 6) on = false;
           fdiag.classList.toggle('is-in', on);
           document.body.classList.toggle('has-fdiag', on);
         }
