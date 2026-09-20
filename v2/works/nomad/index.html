@@ -59,6 +59,7 @@
     });
 
     /* ===== クロ: チャットUI＋ルールベース自動応答（サイト掲載情報のみ） ===== */
+    if (!document.getElementById('shbBtn')) return; /* dog=false のページは犬・チャットなし */
     var panel = document.getElementById('shp');
     var msgs = document.getElementById('shpMsgs');
     var chipsBox = document.getElementById('shpChips');
@@ -159,9 +160,9 @@
   /* 右下ボタンの3Dしば犬（自作モデル・遅延読込・小型canvas） */
   import * as THREE from 'three';
   import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-  const canvas = document.getElementById('shbGL');
-  canvas.dataset.stage = 'loader-imported';
-  const src = canvas.getAttribute('data-src');
+  const canvas = document.getElementById('shbGL'); /* dog=false のページには無い */
+  if (canvas) canvas.dataset.stage = 'loader-imported';
+  const src = canvas && canvas.getAttribute('data-src');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   function init() {
     canvas.dataset.stage = 'init';
@@ -280,7 +281,7 @@
   }
   /* 非表示タブでrequestIdleCallbackが発火しない環境があるためsetTimeout併用 */
   let started = false;
-  function startOnce() { if (started) return; started = true; init(); }
+  function startOnce() { if (started || !canvas) return; started = true; init(); }
   if ('requestIdleCallback' in window) requestIdleCallback(startOnce, { timeout: 3000 });
   setTimeout(startOnce, 2500);
 </script> <script src="/v2/vendor/gsap.min.js"></script> <script src="/v2/vendor/ScrollTrigger.min.js"></script> <script>
