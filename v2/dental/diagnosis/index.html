@@ -1,0 +1,414 @@
+<!DOCTYPE html><html lang="ja" data-mode="dental"> <head><meta name="robots" content="noindex, nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>無料WEBサイト診断｜Bridge Works Studio</title><meta name="description" content="あなたのHP、伝わっていますか？10軸90項目の採点と約20〜30ページの評価レポートで、直すべき場所を無料で見える化します。URLを送るだけ。"><link rel="canonical" href="https://bws-studio.jp/v2/dental/diagnosis/"><meta property="og:type" content="website"><meta property="og:title" content="無料WEBサイト診断｜Bridge Works Studio"><meta property="og:description" content="あなたのHP、伝わっていますか？10軸90項目の採点と約20〜30ページの評価レポートで、直すべき場所を無料で見える化します。URLを送るだけ。"><meta property="og:url" content="https://bws-studio.jp/v2/dental/diagnosis/"><meta property="og:locale" content="ja_JP"><meta property="og:site_name" content="Bridge Works Studio"><meta property="og:image" content="https://bws-studio.jp/ogp.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://bws-studio.jp/ogp.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Bridge Works Studio","alternateName":"ブリッジワークススタジオ","url":"https://bws-studio.jp/","logo":"https://bws-studio.jp/ogp.png","email":"info@bws-studio.jp","description":"歯科医院の立ち上げ・HP制作・広告運用・MEO・AI検索の設計を、分析からデザイン・実装・集客までひとつのチームで行うスタジオ。","areaServed":"JP"}</script><meta name="robots" content="noindex"><link rel="icon" type="image/svg+xml" href="/v2/brand/bws-favicon.svg"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600;700&family=Poppins:wght@600;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet"><script type="importmap">{"imports":{"three":"/v2/vendor/three.module.js","three/addons/":"/v2/vendor/jsm/"}}</script><link rel="stylesheet" href="/v2/_astro/v2.F1ZnE1Qs.css"><link rel="stylesheet" href="/v2/_astro/mode.0t_SAAOT.css"><link rel="stylesheet" href="/v2/_astro/diagnosis.DpASvXxk.css"><style>.subnav__logo{font-size:clamp(.95rem,1.2vw,1.15rem)}.subnav__left{display:flex;align-items:center;gap:1.2rem}.subnav__tabs .tab{font-size:.72rem;padding:.6em 1em}@media(max-width:820px){.hd2 .subnav__left{display:none}}
+</style></head> <body> <script>(function(){const B = "/v2";
+
+  (function () {
+    var d = document.documentElement;
+    var page = d.getAttribute('data-mode') === 'dental' ? 'dental' : 'general';
+    var DEN = B + '/dental';
+    function toMode(path, m) {
+      var isDen = path === DEN || path.indexOf(DEN + '/') === 0;
+      if (m === 'dental' && !isDen) return DEN + path.slice(B.length);
+      if (m === 'general' && isDen) return (B + path.slice(DEN.length)) || '/';
+      return path;
+    }
+    window.__bwsToMode = toMode;
+    var q = null; try { q = new URLSearchParams(location.search).get('mode'); } catch (e) {}
+    var saved = null; try { saved = localStorage.getItem('bws-mode'); } catch (e) {}
+    if (q === 'dental' || q === 'general') { saved = q; try { localStorage.setItem('bws-mode', q); } catch (e) {} }
+    if (saved !== 'dental' && saved !== 'general') { d.classList.add('gate-open'); return; }
+    if (saved !== page) {
+      var t = toMode(location.pathname, saved);
+      if (t !== location.pathname) location.replace(t + location.search + location.hash);
+    }
+  })();
+})();</script> <div class="gate" id="modeGate" role="dialog" aria-modal="true" aria-labelledby="gateQ"> <div class="gate__in"> <span class="lgo gate__logo" aria-label="Bridge Works Studio"><span>Bridge</span><span>Works<i>/</i></span><span>Studio<em>S</em></span></span> <p class="gate__eyebrow en">( Welcome )</p> <h2 class="gate__q" id="gateQ">歯科医療に<br class="gate__br">従事されている方ですか？</h2> <p class="gate__lead">お答えに合わせて、サイトの内容が切り替わります。</p> <div class="gate__btns"> <button class="gate__btn" type="button" data-choose="general"> <span class="gate__btn-en en">FOR BUSINESS</span> <b>一般の方／企業様はこちら</b> <small>企業・店舗・個人事業のHP制作・集客</small> <i aria-hidden="true">→</i> </button> <button class="gate__btn gate__btn--den" type="button" data-choose="dental"> <span class="gate__btn-en en">FOR DENTAL</span> <b>歯科の方はこちら</b> <small>歯科医院の開業・HP制作・集患</small> <i aria-hidden="true">→</i> </button> </div> <p class="gate__note">あとから右上の FOR BUSINESS / FOR DENTAL でいつでも切り替えられます。</p> </div> </div> <script>
+  (function () {
+    var d = document.documentElement;
+    var gate = document.getElementById('modeGate');
+    function choose(m) {
+      try { localStorage.setItem('bws-mode', m); } catch (e) {}
+      var t = window.__bwsToMode ? window.__bwsToMode(location.pathname, m) : location.pathname;
+      if (t !== location.pathname) { location.href = t; return; }
+      d.classList.remove('gate-open');
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
+    }
+    gate.querySelectorAll('[data-choose]').forEach(function (b) {
+      b.addEventListener('click', function () { choose(b.getAttribute('data-choose')); });
+    });
+    /* ヘッダーのFOR BUSINESS/FOR DENTALタブ: いま見ているページの相手側へ（?mode= で保存も更新） */
+    function wireTabs() {
+      document.querySelectorAll('[data-tab-mode]').forEach(function (a) {
+        var m = a.getAttribute('data-tab-mode');
+        if (window.__bwsToMode) a.setAttribute('href', window.__bwsToMode(location.pathname, m) + '?mode=' + m);
+      });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', wireTabs); else wireTabs();
+  })();
+</script> <nav class="menu" id="menu" aria-label="メニュー"> <button class="pill pill--icon menu__close" id="menuClose" type="button" aria-label="閉じる">×</button> <div class="menu__tabs"> <a class="tab tab--ghost" data-tab-mode="general" href="/v2/?mode=general">FOR BUSINESS</a> <a class="tab" data-tab-mode="dental" href="/v2/dental/?mode=dental">FOR DENTAL</a> </div> <a href="/v2/dental/">HOME<small>ホーム</small></a> <a href="/v2/dental/about/">ABOUT<small>BWSについて</small></a> <a href="/v2/dental/works/">WORK<small>制作実績</small></a> <a href="/v2/dental/services/">SERVICE<small>サービス</small></a> <a href="/v2/dental/team/">TEAM<small>チーム</small></a> <a href="/v2/dental/blog/">BLOG<small>ブログ</small></a> <a href="/v2/dental/contact/">CONTACT<small>相談する</small></a> </nav> <header class="hd2" id="hd2"> <div class="spbar"> <a class="spbar__brand en" href="/v2/dental/" aria-label="ホームへ戻る">BRIDGE WORKS <i class="reg2">S</i></a> <button class="spbar__btn" id="spMenuOpen" type="button" aria-label="メニューを開く"> <span></span><span></span> </button> </div>   <div class="subnav__left"> <a class="hd__logo subnav__logo" href="/v2/dental/" aria-label="Bridge Works Studio（ホームへ）"> <span class="lgo"><span>Bridge</span><span>Works<i>/</i></span><span>Studio<em>S</em></span></span> </a>  <nav class="tabs subnav__tabs" aria-label="対象別の入口"> <a class="tab tab--ghost" data-tab-mode="general" href="/v2/?mode=general">FOR BUSINESS</a> <a class="tab" data-tab-mode="dental" href="/v2/dental/?mode=dental">FOR DENTAL</a> </nav> </div> <nav class="navpill en" aria-label="グローバルナビ"> <a href="/v2/dental/">Home</a> <a href="/v2/dental/about/">About</a> <a href="/v2/dental/works/">Work</a> <a href="/v2/dental/services/">Service</a> <a class="sp-hide" href="/v2/dental/team/">Team</a> <a class="sp-hide" href="/v2/dental/blog/">Blog</a> <a href="/v2/dental/contact/">Contact</a> </nav> </header>  <script>
+  (function () {
+    var menu = document.getElementById('menu');
+    var open = document.getElementById('spMenuOpen');
+    var close = document.getElementById('menuClose');
+    if (open && menu) {
+      open.addEventListener('click', function () { menu.classList.add('is-open'); });
+      close.addEventListener('click', function () { menu.classList.remove('is-open'); });
+      menu.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { menu.classList.remove('is-open'); }); });
+    }
+  })();
+</script> <main class="dg">  <section class="dg-hero"> <p class="dg-eyebrow en">( Free Diagnosis )</p> <h1 class="dg-hero__ttl">あなたのHP、<br><span>伝わっていますか？</span></h1> <p class="dg-hero__lead">
+10軸90項目の採点と、約20〜30ページの評価レポートで「直すべき場所」を見える化する無料診断です。
+        検索順位・Googleマップ・AI検索での見つかり方まで実測します。制作・リニューアル前の自己チェックにもどうぞ。
+</p> <form class="dg-cta" action="/v2/dental/contact/" method="get"> <input type="hidden" name="service" value="diagnosis"> <p class="dg-cta__label">まずは、URLを入れるだけ。</p> <button class="dg-cta__btn" type="submit">無料WEBサイト診断をはじめる</button> <div class="dg-cta__url"> <input name="site" type="url" inputmode="url" required placeholder="https:// 診断したいサイトのURL" aria-label="診断したいサイトのURL"> </div> <p class="dg-cta__note">【診断・レポート・解説まで無料／レポートは通常3〜5営業日】</p> </form>  <figure class="dg-device dg-device--tablet"><svg viewBox="0 0 900 640" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans JP',sans-serif">
+  <rect x="10" y="10" width="880" height="620" rx="42" fill="#17181f"/>
+  <rect x="34" y="34" width="832" height="572" rx="18" fill="#fff"/>
+  <rect x="34" y="34" width="832" height="46" rx="18" fill="#f0f1f4"/>
+  <text x="58" y="63" font-size="15" font-weight="700" fill="#17181f">BWS Report</text>
+  <text x="160" y="63" font-size="12" fill="#8a8fa0">｜ 無料WEBサイト診断（サンプル）</text>
+  <text x="842" y="63" font-size="11" fill="#b3b7c2" text-anchor="end">Bridge Works Studio</text>
+  <!-- 左パネル -->
+  <text x="66" y="118" font-size="12" font-weight="700" fill="#8a8fa0">WEBSITE</text>
+  <rect x="66" y="128" width="330" height="34" rx="8" fill="#f0f1f4"/>
+  <text x="80" y="150" font-size="13" fill="#5a6072">https://www.example-clinic.jp</text>
+  <text x="66" y="196" font-size="12" font-weight="700" fill="#8a8fa0">COLORS</text>
+  <rect x="66" y="206" width="44" height="44" rx="8" fill="#17181f" /><rect x="120" y="206" width="44" height="44" rx="8" fill="#5a6072" /><rect x="174" y="206" width="44" height="44" rx="8" fill="#b3b7c2" /><rect x="228" y="206" width="44" height="44" rx="8" fill="#e8833a" /><rect x="282" y="206" width="44" height="44" rx="8" fill="#e4e6ec" stroke="#d5d7de"/>
+  <text x="66" y="292" font-size="12" font-weight="700" fill="#8a8fa0">FONT</text>
+  <text x="66" y="330" font-size="30" font-weight="700" fill="#17181f">Aa 亜あ</text>
+  <rect x="66" y="356" width="330" height="30" rx="6" fill="#17181f"/>
+  <text x="80" y="376" font-size="12" font-weight="700" fill="#fff">10軸スコア（達成率）</text>
+  
+    <text x="66" y="412" font-size="11" fill="#5a6072">検索の基本要件</text>
+    <rect x="180" y="400" width="216" height="12" rx="6" fill="#eceef2"/>
+    <rect x="180" y="400" width="54" height="12" rx="6" fill="#17181f"/>
+    <text x="66" y="450" font-size="11" fill="#5a6072">導線・転換</text>
+    <rect x="180" y="438" width="216" height="12" rx="6" fill="#eceef2"/>
+    <rect x="180" y="438" width="108" height="12" rx="6" fill="#8a8fa0"/>
+    <text x="66" y="488" font-size="11" fill="#5a6072">信頼性</text>
+    <rect x="180" y="476" width="216" height="12" rx="6" fill="#eceef2"/>
+    <rect x="180" y="476" width="162" height="12" rx="6" fill="#17181f"/>
+    <text x="66" y="526" font-size="11" fill="#5a6072">技術基盤</text>
+    <rect x="180" y="514" width="216" height="12" rx="6" fill="#eceef2"/>
+    <rect x="180" y="514" width="86" height="12" rx="6" fill="#8a8fa0"/>
+  <!-- 右パネル -->
+  <rect x="436" y="100" width="404" height="34" rx="6" fill="#17181f"/>
+  <text x="450" y="122" font-size="13" font-weight="700" fill="#fff">BWS Analytics</text>
+  <text x="836" y="122" font-size="10" fill="rgba(255,255,255,.6)" text-anchor="end">総合評価</text>
+  <text x="470" y="238" font-size="96" font-weight="900" fill="#17181f">31</text>
+  <text x="600" y="238" font-size="20" font-weight="700" fill="#b3b7c2">/100</text>
+  
+    <text x="680" y="170" font-size="12" fill="#5a6072">Colors</text>
+    <rect x="740" y="160" width="100" height="10" rx="5" fill="#eceef2"/>
+    <rect x="740" y="160" width="80" height="10" rx="5" fill="#17181f"/>
+    <text x="680" y="200" font-size="12" fill="#5a6072">Layout</text>
+    <rect x="740" y="190" width="100" height="10" rx="5" fill="#eceef2"/>
+    <rect x="740" y="190" width="60" height="10" rx="5" fill="#17181f"/>
+    <text x="680" y="230" font-size="12" fill="#5a6072">Content</text>
+    <rect x="740" y="220" width="100" height="10" rx="5" fill="#eceef2"/>
+    <rect x="740" y="220" width="90" height="10" rx="5" fill="#17181f"/>
+    <text x="680" y="260" font-size="12" fill="#5a6072">Speed</text>
+    <rect x="740" y="250" width="100" height="10" rx="5" fill="#eceef2"/>
+    <rect x="740" y="250" width="30" height="10" rx="5" fill="#17181f"/>
+  <rect x="436" y="270" width="404" height="26" rx="6" fill="#f0f1f4"/>
+  <text x="450" y="288" font-size="12" font-weight="700" fill="#17181f">総合講評</text>
+  <rect x="436" y="312" width="404" height="9" rx="4.5" fill="#e4e6ec"/><rect x="436" y="334" width="380" height="9" rx="4.5" fill="#e4e6ec"/><rect x="436" y="356" width="398" height="9" rx="4.5" fill="#e4e6ec"/><rect x="436" y="378" width="340" height="9" rx="4.5" fill="#e4e6ec"/><rect x="436" y="400" width="404" height="9" rx="4.5" fill="#e4e6ec"/><rect x="436" y="422" width="240" height="9" rx="4.5" fill="#e4e6ec"/>
+  <rect x="436" y="470" width="404" height="26" rx="6" fill="#f0f1f4"/>
+  <text x="450" y="488" font-size="12" font-weight="700" fill="#17181f">最も大きい穴と改善の優先順位</text>
+  <rect x="436" y="512" width="404" height="9" rx="4.5" fill="#e4e6ec"/><rect x="436" y="534" width="360" height="9" rx="4.5" fill="#e4e6ec"/><rect x="436" y="556" width="300" height="9" rx="4.5" fill="#e4e6ec"/>
+</svg></figure> </section>  <section class="dg-sec"> <p class="dg-label en">Problem</p> <h2 class="dg-ttl">WEBサイト診断で<span>解決できる悩み</span></h2> <div class="dg-cards dg-cards--3"> <div class="dg-card"> <b>問い合わせ・予約が増えない理由がわからない</b> <p>アクセスはあるのに反応がない。原因がデザインなのか、文章なのか、導線なのか、切り分けられない。</p> </div><div class="dg-card"> <b>いまのHPの良し悪しを、客観的に判断できない</b> <p>社内・院内に判断できる人がいない。「なんとなく古い気がする」で止まってしまっている。</p> </div><div class="dg-card"> <b>制作会社の提案が妥当か、確かめる材料がない</b> <p>リニューアルの見積もりをもらったが、何をどこまで直すべきかの根拠を自分でも持っておきたい。</p> </div> </div> </section>  <section class="dg-sec"> <p class="dg-label en">Feature</p> <h2 class="dg-ttl">BWSの診断の<span>特徴</span></h2> <div class="dg-cards dg-cards--3"> <div class="dg-card"> <span class="dg-card__en en">SCORE</span> <b>10軸90項目で採点</b> <p>検索の基本要件・言葉の一致・導線・信頼性・技術基盤・セキュリティなど10軸を、自社の採点システムによる機械計測と制作チームの目視で採点します。</p> </div><div class="dg-card"> <span class="dg-card__en en">REPORT</span> <b>約20〜30ページの評価レポート</b> <p>軸ごとの達成率と「最も大きい穴」を明記した評価レポートをお届け。検索順位・Googleマップ（MEO）・AI検索での見つかり方も実測します。</p> </div><div class="dg-card"> <span class="dg-card__en en">PLAN</span> <b>改善方針まで提示</b> <p>点数を出して終わりにしません。どこから直せば成果につながるのか、優先順位と理由つきで改善の方針までご提案します。</p> </div> </div> </section>  <section class="dg-sec"> <p class="dg-label en">Flow</p> <h2 class="dg-ttl">ご利用の<span>流れ</span></h2> <div class="dg-flow"> <div class="dg-step"> <span class="dg-step__no en">01</span> <span class="dg-step__en en">SEND</span> <b>URLを送る</b> <p>下のフォームにサイトのURLを入れて送信。お名前とご連絡先を添えるだけで完了します（入力は1分ほど）。</p> </div><div class="dg-step"> <span class="dg-step__no en">02</span> <span class="dg-step__en en">CHECK</span> <b>BWSが診断</b> <p>自社の採点システムで計測できる項目を機械チェックし、表現・導線・デザインは制作チームが目視で採点します。</p> </div><div class="dg-step"> <span class="dg-step__no en">03</span> <span class="dg-step__en en">REPORT</span> <b>レポートをお届け</b> <p>通常3〜5営業日で、約20〜30ページの評価レポートをメールでお送りします。費用はかかりません。</p> </div><div class="dg-step"> <span class="dg-step__no en">04</span> <span class="dg-step__en en">TALK</span> <b>無料解説（ご希望の方）</b> <p>ご希望があれば、レポートの中身と改善の進め方をオンラインで解説します。そのまま発注いただく必要はありません。</p> </div> </div> <div class="dg-sheet"> <figure class="dg-device dg-device--laptop"><svg viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans JP',sans-serif">
+  <rect x="90" y="10" width="720" height="460" rx="20" fill="#17181f"/>
+  <rect x="108" y="28" width="684" height="424" rx="8" fill="#fff"/>
+  <rect x="108" y="28" width="684" height="52" rx="8" fill="#17181f"/>
+  <rect x="108" y="28" width="8" height="52" fill="#e8833a"/>
+  <text x="132" y="60" font-size="16" font-weight="700" fill="#fff">10軸のスコア：検索・安全・鮮度が特に低い</text>
+  <text x="774" y="60" font-size="11" fill="rgba(255,255,255,.55)" text-anchor="end">SCORE</text>
+  
+    <text x="252" y="118" font-size="12" fill="#33363f" text-anchor="end">検索の基本要件</text>
+    <rect x="264" y="104" width="500" height="20" rx="4" fill="#f0f1f4"/>
+    <rect x="264" y="104" width="85" height="20" rx="4" fill="#17181f"/>
+    <text x="359" y="119" font-size="12" font-weight="700" fill="#17181f">17</text>
+    <text x="252" y="164" font-size="12" fill="#33363f" text-anchor="end">言葉の一致</text>
+    <rect x="264" y="150" width="500" height="20" rx="4" fill="#f0f1f4"/>
+    <rect x="264" y="150" width="150" height="20" rx="4" fill="#17181f"/>
+    <text x="424" y="165" font-size="12" font-weight="700" fill="#17181f">30</text>
+    <text x="252" y="210" font-size="12" fill="#33363f" text-anchor="end">情報設計・導線</text>
+    <rect x="264" y="196" width="500" height="20" rx="4" fill="#f0f1f4"/>
+    <rect x="264" y="196" width="200" height="20" rx="4" fill="#17181f"/>
+    <text x="474" y="211" font-size="12" font-weight="700" fill="#17181f">40</text>
+    <text x="252" y="256" font-size="12" fill="#33363f" text-anchor="end">会社紹介・信頼性</text>
+    <rect x="264" y="242" width="500" height="20" rx="4" fill="#f0f1f4"/>
+    <rect x="264" y="242" width="315" height="20" rx="4" fill="#17181f"/>
+    <text x="589" y="257" font-size="12" font-weight="700" fill="#17181f">63</text>
+    <text x="252" y="302" font-size="12" fill="#33363f" text-anchor="end">お問い合わせ・転換</text>
+    <rect x="264" y="288" width="500" height="20" rx="4" fill="#f0f1f4"/>
+    <rect x="264" y="288" width="125" height="20" rx="4" fill="#17181f"/>
+    <text x="399" y="303" font-size="12" font-weight="700" fill="#17181f">25</text>
+    <text x="252" y="348" font-size="12" fill="#33363f" text-anchor="end">技術基盤・速度</text>
+    <rect x="264" y="334" width="500" height="20" rx="4" fill="#f0f1f4"/>
+    <rect x="264" y="334" width="150" height="20" rx="4" fill="#17181f"/>
+    <text x="424" y="349" font-size="12" font-weight="700" fill="#17181f">30</text>
+    <text x="252" y="394" font-size="12" fill="#33363f" text-anchor="end">セキュリティ・運用</text>
+    <rect x="264" y="380" width="500" height="20" rx="4" fill="#f0f1f4"/>
+    <rect x="264" y="380" width="50" height="20" rx="4" fill="#17181f"/>
+    <text x="324" y="395" font-size="12" font-weight="700" fill="#17181f">10</text>
+  <path d="M60 470 h780 l-30 44 a18 18 0 0 1 -14 8 h-692 a18 18 0 0 1 -14 -8z" fill="#2a2c34"/>
+  <rect x="380" y="470" width="140" height="10" rx="5" fill="#454a58"/>
+</svg></figure> <div class="dg-sheet__body"> <b>評価レポートに載るもの</b> <ul><li>総合スコア（10軸90項目の達成率）</li><li>軸ごとの達成状況と「最も大きい穴」</li><li>検索順位・Googleマップ・AI検索での見つかり方（実測）</li><li>改善の優先順位と、その理由</li></ul> <small>※画面はレポートのサンプルイメージです。数値は例であり、実際の診断結果とは異なります。</small> </div> </div> </section>  <section class="dg-sec"> <p class="dg-label en">FAQ</p> <h2 class="dg-ttl">よくある<span>質問</span></h2> <div class="dg-faq"> <details class="dg-qa"> <summary><i class="en">Q.</i>本当に無料ですか？</summary> <p><i class="en">A.</i>無料です。診断・レポート・解説まで費用はかかりません。改善を私たちにご依頼いただく場合のみ、別途お見積もりします。</p> </details><details class="dg-qa"> <summary><i class="en">Q.</i>しつこく営業されませんか？</summary> <p><i class="en">A.</i>レポートをお送りして終わりです。解説やご相談はご希望いただいた場合のみ行います。</p> </details><details class="dg-qa"> <summary><i class="en">Q.</i>どんなサイトでも診断できますか？</summary> <p><i class="en">A.</i>歯科医院・クリニックのサイトを中心に、分院サイト・自費メニューのLP・採用ページなど幅広く対応します。</p> </details><details class="dg-qa"> <summary><i class="en">Q.</i>どのくらいで結果がわかりますか？</summary> <p><i class="en">A.</i>URLの送信は1分ほどで完了し、レポートは通常3〜5営業日でお届けします。件数が多い時期は前後することがあります。</p> </details><details class="dg-qa"> <summary><i class="en">Q.</i>どういう仕組みで診断していますか？</summary> <p><i class="en">A.</i>自社の採点システムで計測できる項目（表示速度・検索設定・セキュリティ等）を機械的にチェックし、文章・導線・デザインなどは制作チームが目視で採点します。医療系サイトの表現は、チームの歯科医師が確認します。</p> </details> </div> <p class="dg-note">
+※診断・レポートは現状の可視化と改善方針のご提案であり、検索順位や集患・集客などの成果を保証するものではありません。
+        医療広告等ガイドラインに関する確認は表現面についての助言であり、適法性の保証や法律事務の提供にはあたりません。
+</p> </section>  <section class="dg-sec dg-sec--last"> <form class="dg-cta" action="/v2/dental/contact/" method="get"> <input type="hidden" name="service" value="diagnosis"> <p class="dg-cta__label">まずは、URLを入れるだけ。</p> <button class="dg-cta__btn" type="submit">無料WEBサイト診断をはじめる</button> <div class="dg-cta__url"> <input name="site" type="url" inputmode="url" required placeholder="https:// 診断したいサイトのURL" aria-label="診断したいサイトのURL"> </div> <p class="dg-cta__note">【診断・レポート・解説まで無料／レポートは通常3〜5営業日】</p> </form> </section> </main> <footer class="ft2"> <div class="ft2__grid"> <div class="ft2__brand"> <span class="lgo lgo--w" style="font-size: clamp(1.6rem, 2.6vw, 2.3rem)" aria-label="Bridge Works Studio"> <span>Bridge</span> <span>Works<i>/</i></span> <span>Studio<em>S</em></span> </span> </div> <nav class="ft2__links" aria-label="フッターナビ"> <a href="/v2/dental/about/">BWSについて</a> <a href="/v2/dental/works/">制作実績</a> <a href="/v2/dental/services/">サービス</a> <a href="/v2/dental/team/">チーム</a> <a href="/v2/dental/news/">お知らせ</a> </nav> <div class="ft2__contact"> <a href="mailto:info@bws-studio.jp">info@bws-studio.jp</a> <a href="/v2/dental/contact/">お問い合わせフォーム</a> <p>歯科医院の立ち上げ・新規事業<br>HP・ロゴ制作／山田 洋史（個人事業）</p> </div> <button class="ft2__up en" id="toTop" type="button" aria-label="トップへ戻る">↑</button> </div> <div class="ft2__bottom en"> <span>© 2026<br>BRIDGE WORKS STUDIO<br>ONE TEAM, FROM STRATEGY TO SHIP.</span> </div> </footer> <div class="ckb" id="ckb" hidden> <div class="ckb__hd"> <b>Cookieを使用しています</b> <button class="ckb__x" id="ckClose" type="button" aria-label="閉じる">×</button> </div> <div class="ckb__row"> <a class="ckb__more" href="/v2/dental/privacy/">詳細を見る</a> <div class="ckb__btns"> <button class="ckb__btn" id="ckReject" type="button">すべて拒否</button> <button class="ckb__btn ckb__btn--ok" id="ckAccept" type="button">すべて同意</button> </div> </div> </div> <button class="shb" id="shbBtn" type="button" aria-label="アシスタントのクロに質問する"> <canvas id="shbGL" data-src="/v2/mascot/kuroshiba_rigged.glb" data-scarf="green"></canvas> </button> <section class="shp" id="shp" hidden aria-label="BWSアシスタント"> <header class="shp__hd"> <span><b>クロ</b><small>BWSアシスタント（自動応答）</small></span> <button class="shp__close" id="shpClose" type="button" aria-label="閉じる">×</button> </header> <div class="shp__msgs" id="shpMsgs"></div> <div class="shp__chips" id="shpChips"></div> <form class="shp__form" id="shpForm"> <input id="shpInput" type="text" placeholder="質問を入力…" autocomplete="off"> <button type="submit" aria-label="送信">→</button> </form> </section> <script>(function(){const B = "/v2";
+
+  (function () {
+    /* ===== Cookie同意バナー ===== */
+    var ckb = document.getElementById('ckb');
+    var KEY = 'bws-consent';
+    var saved = null;
+    try { saved = localStorage.getItem(KEY); } catch (e) {}
+    window.__bwsConsent = saved;
+    if (!saved) {
+      setTimeout(function () { ckb.hidden = false; requestAnimationFrame(function () { ckb.classList.add('is-in'); }); }, 1200);
+    }
+    function setConsent(v) {
+      try { localStorage.setItem(KEY, v); } catch (e) {}
+      window.__bwsConsent = v;
+      ckb.classList.remove('is-in');
+      setTimeout(function () { ckb.hidden = true; }, 450);
+    }
+    document.getElementById('ckAccept').addEventListener('click', function () { setConsent('accepted'); });
+    document.getElementById('ckReject').addEventListener('click', function () { setConsent('rejected'); });
+    /* ×は保存せず閉じるだけ（次回訪問時にまた表示） */
+    document.getElementById('ckClose').addEventListener('click', function () {
+      ckb.classList.remove('is-in');
+      setTimeout(function () { ckb.hidden = true; }, 450);
+    });
+
+    /* ===== クロ: チャットUI＋ルールベース自動応答（サイト掲載情報のみ） ===== */
+    if (!document.getElementById('shbBtn')) return; /* dog=false のページは犬・チャットなし */
+    var panel = document.getElementById('shp');
+    var msgs = document.getElementById('shpMsgs');
+    var chipsBox = document.getElementById('shpChips');
+    var input = document.getElementById('shpInput');
+    var opened = false;
+
+    var FAQ = [
+      { k: ['料金', '価格', '費用', 'いくら', '予算', '値段'],
+        a: 'Webサイト・LP制作は30万円〜（多くのご依頼は50〜80万円）、ロゴは5万円〜です。くわしくは料金ページへ → ' + B + '/guide/' },
+      { k: ['納期', '期間', 'どれくらい', 'いつまで', 'スケジュール'],
+        a: 'サイト単体で2〜3か月が目安です。開業日が決まっている場合は、そこから逆算して進行を組みます。' },
+      { k: ['相談', '問い合わせ', '依頼', '見積', '連絡'],
+        a: 'ご相談は無料です。お問い合わせフォームからどうぞ → ' + B + '/contact/　目的やご予算を伺って5営業日前後でお見積りします。' },
+      { k: ['実績', '事例', 'ポートフォリオ', '作品'],
+        a: '審美歯科の開業まるごと支援（BOC）や、オンラインホワイトニングのD2C設計（whiley）などがあります。制作実績ページへ → ' + B + '/works/' },
+      { k: ['医療広告', '薬機法', 'ガイドライン', '広告規制', '監修'],
+        a: '医療案件は現役歯科医師が医療広告等ガイドライン・薬機法を踏まえて表現面を確認します（適法性の保証や法律事務の提供ではありません）。' },
+      { k: ['歯科以外', '一般企業', '業種', '飲食', '美容室', 'ホテル', '旅館'],
+        a: '歯科が主戦場ですが、一般企業のサイト・ロゴも対応しています。まずは内容をフォームからお聞かせください → ' + B + '/contact/' },
+      { k: ['保守', '運用', '更新', '公開後'],
+        a: 'お知らせ等はご自身で更新できる形でお渡しします。継続的な運用・改善のご依頼も、内容に応じてお見積りします。' },
+      { k: ['seo', 'meo', '検索', '集客', '広告', 'sns', 'インスタ'],
+        a: 'SEO・MEOの初期設計、Meta広告のクリエイティブ制作・運用、SNS伴走まで対応します。サービス一覧へ → ' + B + '/services/' },
+      { k: ['ai', 'claude', '自動化'],
+        a: '私たち自身が使い倒しているClaude Codeの導入・定着支援も行っています。くわしくは → ' + B + '/services/' },
+      { k: ['こんにちは', 'こんばんは', 'はじめまして', 'おはよう', 'やあ', 'ワン'],
+        a: 'ワン！BWSアシスタントのクロです。料金・納期・実績のことなど、聞きたいことを選ぶか入力してください。' },
+    ];
+    var FALLBACK = 'ごめんなさい、その質問には自動応答で答えられませんでした…。フォームから聞いてもらえれば人間のチームが答えます → ' + B + '/contact/';
+    var CHIPS = [
+      ['料金は？', '料金'],
+      ['納期は？', '納期'],
+      ['実績を見たい', '実績'],
+      ['相談したい', '相談'],
+    ];
+
+    function addMsg(text, who) {
+      var d = document.createElement('div');
+      d.className = 'shp__msg shp__msg--' + who;
+      // URLはリンク化
+      var parts = text.split(/(https?:\/\/\S+|\/(?:guide|contact|works|services)\/)/g);
+      parts.forEach(function (pt) {
+        if (!pt) return;
+        if (/^(https?:\/\/|\/)/.test(pt)) {
+          var a = document.createElement('a'); a.href = pt; a.textContent = 'こちら →'; d.appendChild(a);
+        } else { d.appendChild(document.createTextNode(pt)); }
+      });
+      msgs.appendChild(d);
+      msgs.scrollTop = msgs.scrollHeight;
+    }
+    function answer(q) {
+      addMsg(q, 'me');
+      var ql = q.toLowerCase();
+      var hit = null;
+      for (var i = 0; i < FAQ.length; i++) {
+        if (FAQ[i].k.some(function (k) { return ql.indexOf(k.toLowerCase()) !== -1; })) { hit = FAQ[i].a; break; }
+      }
+      setTimeout(function () { addMsg(hit || FALLBACK, 'bot'); }, 420);
+    }
+    CHIPS.forEach(function (c) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'shp__chip'; b.textContent = c[0];
+      b.addEventListener('click', function () { answer(c[1] === '料金' ? '料金は？' : c[0]); });
+      chipsBox.appendChild(b);
+    });
+    document.getElementById('shbBtn').addEventListener('click', function () {
+      panel.hidden = !panel.hidden;
+      if (!panel.hidden && !opened) {
+        opened = true;
+        addMsg('ワン！クロです。BWSのことなら何でも聞いてください（自動応答です）。', 'bot');
+      }
+      if (!panel.hidden) input.focus();
+    });
+    document.getElementById('shpClose').addEventListener('click', function () { panel.hidden = true; });
+    document.getElementById('shpForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var q = input.value.trim();
+      if (!q) return;
+      input.value = '';
+      answer(q);
+    });
+  })();
+})();</script> <script>
+  /* クロの出入り: 上にスクロールしたら登場、下スクロール・最上部では退場（2026-09-19 山田指示） */
+  (function () {
+    var shb = document.querySelector('.shb');
+    if (!shb) return;
+    var last = window.scrollY;
+    addEventListener('scroll', function () {
+      var y = window.scrollY, d = y - last;
+      last = y;
+      if (y < 60) { shb.classList.remove('is-in'); return; }
+      if (d < -6) shb.classList.add('is-in');
+      else if (d > 6) shb.classList.remove('is-in');
+    }, { passive: true });
+  })();
+</script> <script type="module">
+  /* 右下ボタンの3Dしば犬（自作モデル・遅延読込・小型canvas） */
+  import * as THREE from 'three';
+  import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+  const canvas = document.getElementById('shbGL'); /* dog=false のページには無い */
+  if (canvas) canvas.dataset.stage = 'loader-imported';
+  const src = canvas && canvas.getAttribute('data-src');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function init() {
+    canvas.dataset.stage = 'init';
+    let renderer;
+    try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true }); } catch (e) { return; }
+    renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+    renderer.setSize(132, 132, false); /* 2026-09-20 山田指示: もう少し大きく（120→132） */
+    const scene = new THREE.Scene();
+    const cam = new THREE.PerspectiveCamera(32, 1, 0.1, 50);
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x8890a8, 1.25));
+    const key = new THREE.DirectionalLight(0xffffff, 1.6);
+    key.position.set(2, 4, 3);
+    scene.add(key);
+    new GLTFLoader().load(src, (gltf) => {
+      canvas.dataset.stage = 'model-loaded';
+      const m = gltf.scene;
+      /* 2026-09-16 山田指示: 首輪＋鈴はやめてスカーフに。
+         collarマテリアルを持つプリミティブと、同じ元メッシュ由来（名前が同じベース）の
+         鈴プリミティブをまとめて非表示にする（目も'reflective'なので兄弟一括では消さない） */
+      let collarBase = null;
+      m.traverse((o) => { if (o.isMesh && o.material && o.material.name === 'collar') collarBase = o.name.replace(/_\d+$/, ''); });
+      if (collarBase) m.traverse((o) => {
+        if (o.isMesh && (o.name === collarBase || o.name.indexOf(collarBase + '_') === 0)) o.visible = false;
+      });
+      const box = new THREE.Box3().setFromObject(m);
+      const size = box.getSize(new THREE.Vector3());
+      m.scale.setScalar(1.75 / size.y);
+      box.setFromObject(m);
+      const c = box.getCenter(new THREE.Vector3());
+      m.position.sub(c);
+      m.rotation.y = 0; /* モデルの正面は+Z＝そのままカメラ向き */
+      scene.add(m);
+      /* 赤いスカーフ（バンド＋結び目＋なびく端切れ）を首ボーンに直付け→アニメに追従。
+         ボーンはペイン検証で特定: DEF-spine010が首（〜009=胴、011=頭） */
+      let scarfTail = null;
+      const neck = m.getObjectByName('DEF-spine010') || m.getObjectByName('DEF-spine.010');
+      if (neck) {
+        /* 2026-09-20 山田指示: サブページは緑の唐草スカーフ（緑地×白渦をcanvasで描いてテクスチャ化） */
+        let red;
+        if (canvas.dataset.scarf === 'green') {
+          const c2 = document.createElement('canvas');
+          c2.width = c2.height = 256;
+          const x = c2.getContext('2d');
+          x.fillStyle = '#1d5a37';
+          x.fillRect(0, 0, 256, 256);
+          x.strokeStyle = '#f3f5ef'; x.lineCap = 'round'; x.lineWidth = 9;
+          [[42, 44, 36, 1], [150, 62, 40, -1], [74, 152, 34, -1], [204, 168, 42, 1], [228, 58, 30, -1], [118, 214, 36, 1]].forEach(function (p, i) {
+            x.beginPath();
+            const turns = 1.7, a0 = i * 1.1, dir = p[3];
+            for (let t = 0; t <= turns * Math.PI * 2; t += 0.1) {
+              const r = p[2] * (1 - t / (turns * Math.PI * 2 + 1.2));
+              const px2 = p[0] + Math.cos(dir * t + a0) * r, py2 = p[1] + Math.sin(dir * t + a0) * r;
+              if (t === 0) x.moveTo(px2, py2); else x.lineTo(px2, py2);
+            }
+            x.stroke();
+          });
+          const tex = new THREE.CanvasTexture(c2);
+          tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+          tex.repeat.set(2, 1);
+          red = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.7, metalness: 0 });
+        } else {
+          red = new THREE.MeshStandardMaterial({ color: 0xc9372c, roughness: 0.65, metalness: 0 });
+        }
+        const g = new THREE.Group();
+        const R = size.y * 0.24; /* 首まわり半径（実寸合わせ済み。元0.155→1.55倍） */
+        const band = new THREE.Mesh(new THREE.TorusGeometry(R, R * 0.30, 12, 28), red);
+        band.rotation.x = Math.PI / 2;
+        g.add(band);
+        const knot = new THREE.Mesh(new THREE.SphereGeometry(R * 0.34, 12, 10), red);
+        knot.position.set(R * 0.72, -R * 0.42, R * 0.62);
+        g.add(knot);
+        scarfTail = new THREE.Mesh(new THREE.PlaneGeometry(R * 0.62, R * 1.5), red);
+        scarfTail.material = red.clone();
+        scarfTail.material.side = THREE.DoubleSide;
+        scarfTail.geometry.translate(0, -R * 0.75, 0); /* 上端を支点に垂らす */
+        scarfTail.position.copy(knot.position);
+        scarfTail.rotation.y = 0.5;
+        g.add(scarfTail);
+        neck.add(g);
+        window.__shbScarf = g; /* 位置調整用のハンドル（ペイン検証で使用） */
+      }
+      /* 内蔵アニメーション（ペイン検証: Sit=おすわり、stand=二本足で立つ芸）。
+         基本は四つ足の待機（バインドポーズ＋ゆらゆら）、ときどきおすわり、たまに二本足の芸 */
+      const mixer = new THREE.AnimationMixer(m);
+      const clips = gltf.animations || [];
+      const findClip = (n) => THREE.AnimationClip.findByName(clips, n);
+      const sitA = findClip('Sit') ? mixer.clipAction(findClip('Sit')) : null;
+      const standA = findClip('stand') ? mixer.clipAction(findClip('stand')) : null;
+      [sitA, standA].forEach((a) => { if (a) { a.setLoop(THREE.LoopOnce, 1); a.clampWhenFinished = true; } });
+      let act = null;
+      let nextAt = performance.now() + 4500 + Math.random() * 4000;
+      function playPose(a, holdMs) { act = a; a.reset().fadeIn(0.35).play(); nextAt = performance.now() + holdMs; }
+      function stopPose() { if (act) act.fadeOut(0.45); act = null; nextAt = performance.now() + 5500 + Math.random() * 5500; }
+      function nextMove() {
+        if (act) { stopPose(); return; }
+        if (sitA && (Math.random() < 0.7 || !standA)) playPose(sitA, 4200 + Math.random() * 2600);
+        else if (standA) playPose(standA, 2600 + Math.random() * 1400);
+      }
+      cam.position.set(0, 0.1, 3.6);
+      cam.lookAt(0, 0, 0);
+      const clock = new THREE.Clock();
+      let t = 0;
+      (function frame() {
+        requestAnimationFrame(frame);
+        if (reduce) { renderer.render(scene, cam); return; }
+        const dt = clock.getDelta();
+        t += 0.02;
+        mixer.update(dt);
+        if (performance.now() > nextAt) nextMove();
+        m.rotation.y = Math.sin(t * 0.5) * 0.32; /* 体ごとゆっくり見回す（従来より控えめ） */
+        if (!act) m.position.y = -c.y + Math.sin(t * 1.6) * 0.02; /* 待機中だけ小さく呼吸 */
+        if (scarfTail) scarfTail.rotation.x = Math.sin(t * 2.2) * 0.18 - 0.12; /* 端切れがなびく */
+        renderer.render(scene, cam);
+      })();
+    }, undefined, (err) => { canvas.dataset.stage = 'error:' + (err && err.message ? err.message.slice(0, 60) : 'load'); });
+  }
+  /* 非表示タブでrequestIdleCallbackが発火しない環境があるためsetTimeout併用 */
+  let started = false;
+  function startOnce() { if (started || !canvas) return; started = true; init(); }
+  if ('requestIdleCallback' in window) requestIdleCallback(startOnce, { timeout: 3000 });
+  setTimeout(startOnce, 2500);
+</script> <script>
+    (function () {
+      var toTop = document.getElementById('toTop');
+      if (toTop) toTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    })();
+  </script> </body> </html>
