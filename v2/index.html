@@ -11,9 +11,15 @@
       return path;
     }
     window.__bwsToMode = toMode;
-    var q = null; try { q = new URLSearchParams(location.search).get('mode'); } catch (e) {}
-    var saved = null; try { saved = localStorage.getItem('bws-mode'); } catch (e) {}
-    if (q === 'dental' || q === 'general') { saved = q; try { localStorage.setItem('bws-mode', q); } catch (e) {} }
+    /* 保存キーは bws-v2-mode。旧キー bws-mode は同じドメインの旧サイト(v1)や以前の切替でも書かれていて、
+       ゲートが一度も出ないことがあったため分けた（2026-09-24 山田報告「PC版で出ない」）。
+       ?gate=1 で強制表示（確認・デモ用） */
+    var KEY = 'bws-v2-mode';
+    var sp = null; try { sp = new URLSearchParams(location.search); } catch (e) {}
+    var q = sp ? sp.get('mode') : null;
+    var saved = null; try { saved = localStorage.getItem(KEY); } catch (e) {}
+    if (q === 'dental' || q === 'general') { saved = q; try { localStorage.setItem(KEY, q); } catch (e) {} }
+    if (sp && sp.get('gate') === '1') { d.classList.add('gate-open'); return; }
     if (saved !== 'dental' && saved !== 'general') { d.classList.add('gate-open'); return; }
     if (saved !== page) {
       var t = toMode(location.pathname, saved);
@@ -25,7 +31,7 @@
     var d = document.documentElement;
     var gate = document.getElementById('modeGate');
     function choose(m) {
-      try { localStorage.setItem('bws-mode', m); } catch (e) {}
+      try { localStorage.setItem('bws-v2-mode', m); } catch (e) {}
       var t = window.__bwsToMode ? window.__bwsToMode(location.pathname, m) : location.pathname;
       if (t !== location.pathname) { location.href = t; return; }
       d.classList.remove('gate-open');
