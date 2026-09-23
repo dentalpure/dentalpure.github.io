@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="ja" data-mode="dental"> <head><meta name="robots" content="noindex, nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Bridge Works Studio｜歯科医院のHP制作・広告運用</title><meta name="description" content="歯科医院のHP・LP制作、SNS運用、広告・PRまで。現役歯科医師が表現面を確認する制作スタジオ。掲載数値はすべて自社運用の実測値です。"><link rel="canonical" href="https://bws-studio.jp/v2/dental/"><meta property="og:type" content="website"><meta property="og:title" content="Bridge Works Studio｜歯科医院のHP制作・広告運用"><meta property="og:description" content="歯科医院のHP・LP制作、SNS運用、広告・PRまで。現役歯科医師が表現面を確認する制作スタジオ。掲載数値はすべて自社運用の実測値です。"><meta property="og:url" content="https://bws-studio.jp/v2/dental/"><meta property="og:locale" content="ja_JP"><meta property="og:site_name" content="Bridge Works Studio"><meta property="og:image" content="https://bws-studio.jp/ogp.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://bws-studio.jp/ogp.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Bridge Works Studio","alternateName":"ブリッジワークススタジオ","url":"https://bws-studio.jp/","logo":"https://bws-studio.jp/ogp.png","email":"info@bws-studio.jp","description":"歯科医院の立ち上げ・HP制作・広告運用・MEO・AI検索の設計を、分析からデザイン・実装・集客までひとつのチームで行うスタジオ。","areaServed":"JP"}</script><meta name="robots" content="noindex"><link rel="icon" type="image/svg+xml" href="/v2/brand/bws-favicon.svg"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600;700&family=Poppins:wght@600;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet"><script type="importmap">{"imports":{"three":"/v2/vendor/three.module.js","three/addons/":"/v2/vendor/jsm/"}}</script><link rel="stylesheet" href="/v2/_astro/v2.Ya8X_oDq.css"><link rel="stylesheet" href="/v2/_astro/mode.BQkrydVg.css"></head> <body> <script>(function(){const B = "/v2";
+<!DOCTYPE html><html lang="ja" data-mode="dental"> <head><meta name="robots" content="noindex, nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Bridge Works Studio｜歯科医院のHP制作・広告運用</title><meta name="description" content="歯科医院のHP・LP制作、SNS運用、広告・PRまで。現役歯科医師が表現面を確認する制作スタジオ。掲載数値はすべて自社運用の実測値です。"><link rel="canonical" href="https://bws-studio.jp/v2/dental/"><meta property="og:type" content="website"><meta property="og:title" content="Bridge Works Studio｜歯科医院のHP制作・広告運用"><meta property="og:description" content="歯科医院のHP・LP制作、SNS運用、広告・PRまで。現役歯科医師が表現面を確認する制作スタジオ。掲載数値はすべて自社運用の実測値です。"><meta property="og:url" content="https://bws-studio.jp/v2/dental/"><meta property="og:locale" content="ja_JP"><meta property="og:site_name" content="Bridge Works Studio"><meta property="og:image" content="https://bws-studio.jp/ogp.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://bws-studio.jp/ogp.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Bridge Works Studio","alternateName":"ブリッジワークススタジオ","url":"https://bws-studio.jp/","logo":"https://bws-studio.jp/ogp.png","email":"info@bws-studio.jp","description":"歯科医院の立ち上げ・HP制作・広告運用・MEO・AI検索の設計を、分析からデザイン・実装・集客までひとつのチームで行うスタジオ。","areaServed":"JP"}</script><meta name="robots" content="noindex"><link rel="icon" type="image/svg+xml" href="/v2/brand/bws-favicon.svg"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600;700&family=Poppins:wght@600;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet"><script type="importmap">{"imports":{"three":"/v2/vendor/three.module.js","three/addons/":"/v2/vendor/jsm/"}}</script><link rel="stylesheet" href="/v2/_astro/v2.BHvsxnZx.css"><link rel="stylesheet" href="/v2/_astro/mode.BQkrydVg.css"></head> <body> <script>(function(){const B = "/v2";
 
   (function () {
     var d = document.documentElement;
@@ -598,7 +598,22 @@
         var text = el.textContent.replace(/\s+/g, ' ').trim();
         el.textContent = '';
         var frag = document.createDocumentFragment();
-        text.split('').forEach(function (chr) {
+        /* 2026-09-24 山田指摘「携帯版の文章の区切り方が良くない」: 1文字ずつではなく文節ごとに
+           inline-block にする。Intl.Segmenter(word)で分け、句読点・閉じ括弧・短い助詞は前の語に、
+           開き括弧は次の語にくっつける（禁則処理）。非対応ブラウザは1文字ずつ（従来どおり） */
+        function phrases(t) {
+          var segs;
+          try { segs = Array.from(new Intl.Segmenter('ja', { granularity: 'word' }).segment(t), function (x) { return x.segment; }); }
+          catch (e) { return t.split(''); }
+          var out = [], open = /^[（「『【〈《“‘(\[]$/, close = /^[、。，．・：；！？」』】〉》”’)\]）ー〜…%％]+$/, kana = /^[ぁ-ん]{1,4}$/;
+          segs.forEach(function (s) {
+            var prev = out.length ? out[out.length - 1] : null;
+            if (prev !== null && prev !== ' ' && (close.test(s) || kana.test(s) || open.test(prev))) { out[out.length - 1] += s; return; }
+            out.push(s);
+          });
+          return out;
+        }
+        phrases(text).forEach(function (chr) {
           var s = document.createElement('span'); s.className = 'lw';
           s.textContent = chr === ' ' ? ' ' : chr; frag.appendChild(s);
         });
