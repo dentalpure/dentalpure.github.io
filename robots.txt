@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /v2/
-Sitemap: https://dentalpure.github.io/sitemap-index.xml
+Sitemap: https://bws-studio.jp/sitemap-index.xml
